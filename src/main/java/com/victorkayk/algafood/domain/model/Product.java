@@ -32,4 +32,8 @@ public class Product {
     @OneToOne
     @JoinColumn(name = "product_photo_id")
     private ProductPhoto productPhoto;
+
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    private Restaurant restaurant;
 }

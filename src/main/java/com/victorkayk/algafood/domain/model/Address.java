@@ -5,32 +5,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "addresses")
+@Embeddable
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Address {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "zip_code")
+    @Column(name = "address_zip_code")
     private String zipCode;
 
-    @Column(name = "public_place")
+    @Column(name = "address_public_place")
     private String publicPlace;
 
-    @Column(name = "number")
+    @Column(name = "address_number")
     private String number;
 
-    @Column(name = "complement")
+    @Column(name = "address_complement")
     private String complement;
 
-    @Column(name = "neighborhood")
+    @Column(name = "address_neighborhood")
     private String neighborhood;
 
     @ManyToOne
-    @JoinColumn(name = "city_id")
+    @JoinColumn(name = "address_city_id")
     private City city;
 }
