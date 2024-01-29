@@ -1,9 +1,10 @@
 package com.victorkayk.algafood.domain.service.impl;
 
+import com.victorkayk.algafood.domain.enums.ErrorEnum;
+import com.victorkayk.algafood.domain.exception.ApiException;
 import com.victorkayk.algafood.domain.model.Kitchen;
 import com.victorkayk.algafood.domain.repository.KitchenRepository;
 import com.victorkayk.algafood.domain.service.KitchenService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,8 @@ public class KitchenServiceImpl implements KitchenService {
 
     @Override
     public Kitchen findById(Long id) {
-        return kitchenRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Kitchen not found"));
+        return kitchenRepository.findById(id)
+                .orElseThrow(() -> new ApiException(ErrorEnum.KITCHEN_NOT_FOUND));
     }
 
     @Override

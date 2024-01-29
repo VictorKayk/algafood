@@ -1,9 +1,10 @@
 package com.victorkayk.algafood.domain.service.impl;
 
+import com.victorkayk.algafood.domain.enums.ErrorEnum;
+import com.victorkayk.algafood.domain.exception.ApiException;
 import com.victorkayk.algafood.domain.model.Restaurant;
 import com.victorkayk.algafood.domain.repository.RestaurantRepository;
 import com.victorkayk.algafood.domain.service.RestaurantService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public Restaurant findById(Long id) {
-        return restaurantRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Restaurant not found"));
+        return restaurantRepository.findById(id)
+                .orElseThrow(() -> new ApiException(ErrorEnum.RESTAURANT_NOT_FOUND));
     }
 
     @Override

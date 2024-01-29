@@ -1,9 +1,10 @@
 package com.victorkayk.algafood.domain.service.impl;
 
+import com.victorkayk.algafood.domain.enums.ErrorEnum;
+import com.victorkayk.algafood.domain.exception.ApiException;
 import com.victorkayk.algafood.domain.model.City;
 import com.victorkayk.algafood.domain.repository.CityRepository;
 import com.victorkayk.algafood.domain.service.CityService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,8 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public City findById(Long id) {
-        return cityRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("City not found"));
+        return cityRepository.findById(id)
+                .orElseThrow(() -> new ApiException(ErrorEnum.CITY_NOT_FOUND));
     }
 
     @Override

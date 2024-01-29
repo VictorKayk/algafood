@@ -1,9 +1,10 @@
 package com.victorkayk.algafood.domain.service.impl;
 
+import com.victorkayk.algafood.domain.enums.ErrorEnum;
+import com.victorkayk.algafood.domain.exception.ApiException;
 import com.victorkayk.algafood.domain.model.State;
 import com.victorkayk.algafood.domain.repository.StateRepository;
 import com.victorkayk.algafood.domain.service.StateService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,8 @@ public class StateServiceImpl implements StateService {
 
     @Override
     public State findById(Long id) {
-        return stateRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("State not found"));
+        return stateRepository.findById(id)
+                .orElseThrow(() -> new ApiException(ErrorEnum.RESTAURANT_NOT_FOUND));
     }
 
     @Override
