@@ -15,15 +15,15 @@ public class ProductPhoto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "file_name")
+    @Column(name = "file_name", nullable = false)
     private String fileName;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "content_type")
+    @Column(name = "content_type", nullable = false)
     private String contentType;
 
-    @Column(name = "file_size")
+    @Column(name = "file_size", nullable = false)
     private Long fileSize;
 }

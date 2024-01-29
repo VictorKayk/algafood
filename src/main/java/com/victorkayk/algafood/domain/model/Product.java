@@ -17,16 +17,16 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private BigDecimal price;
 
-    @Column(name = "active")
+    @Column(name = "active", nullable = false)
     private Boolean active;
 
     @OneToOne

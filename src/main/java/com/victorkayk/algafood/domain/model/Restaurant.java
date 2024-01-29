@@ -9,6 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "restaurants")
@@ -20,10 +21,10 @@ public class Restaurant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "shipping_fee")
+    @Column(name = "shipping_fee", nullable = false)
     private BigDecimal shippingFee;
 
     @Column(name = "is_active")
@@ -33,7 +34,7 @@ public class Restaurant {
     private Boolean isOpen;
 
     @ManyToOne
-    @JoinColumn(name = "kitchen_id")
+    @JoinColumn(name = "kitchen_id", nullable = false)
     private Kitchen kitchen;
 
     @Embedded
@@ -44,4 +45,15 @@ public class Restaurant {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @ManyToMany
+    @JoinTable(
+            name = "restaurant_payment_methods",
+            joinColumns = @JoinColumn(name = "restaurant_id"),
+            inverseJoinColumns = @JoinColumn(name = "payment_method_id")
+    )
+    private List<PaymentMethod> paymentMethods;
+
+    @OneToMany(mappedBy = "restaurant")
+    private List<Product> products;
 }

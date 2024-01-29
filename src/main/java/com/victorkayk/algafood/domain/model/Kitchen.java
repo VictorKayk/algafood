@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "kitchens")
 @Data
@@ -17,4 +19,7 @@ public class Kitchen {
 
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "kitchen")
+    private List<Restaurant> restaurants;
 }

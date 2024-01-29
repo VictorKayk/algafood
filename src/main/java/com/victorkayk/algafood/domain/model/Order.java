@@ -1,12 +1,15 @@
 package com.victorkayk.algafood.domain.model;
 
+import com.victorkayk.algafood.domain.enums.StatusOrderEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -24,10 +27,11 @@ public class Order {
     @Column(name = "shipping_fee")
     private BigDecimal shippingFee;
 
-    @Column(name = "total")
+    @Column(name = "total", nullable = false)
     private BigDecimal total;
 
-    @Column(name = "created_at")
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "confirmed_at")
@@ -39,6 +43,24 @@ public class Order {
     @Column(name = "delivered_at")
     private LocalDateTime deliveredAt;
 
-    @Column(name = "status")
-    private StatusOrder status;
+    @Column(name = "status", nullable = false)
+    private StatusOrderEnum status = StatusOrderEnum.CREATED;
+
+    @Embedded
+    private Address address;
+
+    @ManyToOne
+    @JoinColumn(name = "payment_method_id", nullable = false)
+    private PaymentMethod paymentMethod;
+
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    private Restaurant restaurant;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User client;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> items;
 }
