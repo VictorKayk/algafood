@@ -53,6 +53,12 @@
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-mysql</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>5.4.0</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -68,6 +74,9 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-failsafe-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
