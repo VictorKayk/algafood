@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Entity
@@ -32,16 +32,16 @@ public class Order {
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
+    private OffsetDateTime createdAt;
 
     @Column(name = "confirmed_at")
-    private LocalDateTime confirmedAt;
+    private OffsetDateTime confirmedAt;
 
     @Column(name = "canceled_at")
-    private LocalDateTime canceledAt;
+    private OffsetDateTime canceledAt;
 
     @Column(name = "delivered_at")
-    private LocalDateTime deliveredAt;
+    private OffsetDateTime deliveredAt;
 
     @Column(name = "status", nullable = false)
     private StatusOrderEnum status = StatusOrderEnum.CREATED;
