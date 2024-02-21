@@ -1,7 +1,6 @@
 package com.victorkayk.algafood.api.controller;
 
-import com.victorkayk.algafood.api.dto.request.StatePostRequestDTO;
-import com.victorkayk.algafood.api.dto.request.StatePutRequestDTO;
+import com.victorkayk.algafood.api.dto.request.StateRequestDTO;
 import com.victorkayk.algafood.api.dto.response.StateResponseDTO;
 import com.victorkayk.algafood.api.mapper.StateMapper;
 import com.victorkayk.algafood.domain.model.State;
@@ -40,15 +39,15 @@ public class StateController {
     }
 
     @PostMapping
-    public ResponseEntity<StateResponseDTO> save(@RequestBody StatePostRequestDTO dto) {
-        State state = stateMapper.postRequestDTOToEntity(dto);
+    public ResponseEntity<StateResponseDTO> save(@RequestBody StateRequestDTO dto) {
+        State state = stateMapper.requestDTOToEntity(dto);
         return new ResponseEntity<>(stateMapper.toResponseDTO(stateService.save(state)), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StateResponseDTO> update(@PathVariable Long id, @RequestBody StatePutRequestDTO dto) {
+    public ResponseEntity<StateResponseDTO> update(@PathVariable Long id, @RequestBody StateRequestDTO dto) {
         try {
-            State state = stateMapper.putRequestDTOToEntity(dto);
+            State state = stateMapper.requestDTOToEntity(dto);
             return ResponseEntity.ok(stateMapper.toResponseDTO(stateService.update(id, state)));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();

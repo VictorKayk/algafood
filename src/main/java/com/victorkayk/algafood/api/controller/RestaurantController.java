@@ -1,7 +1,6 @@
 package com.victorkayk.algafood.api.controller;
 
-import com.victorkayk.algafood.api.dto.request.RestaurantPostRequestDTO;
-import com.victorkayk.algafood.api.dto.request.RestaurantPutRequestDTO;
+import com.victorkayk.algafood.api.dto.request.RestaurantRequestDTO;
 import com.victorkayk.algafood.api.dto.response.RestaurantResponseDTO;
 import com.victorkayk.algafood.api.mapper.RestaurantMapper;
 import com.victorkayk.algafood.domain.model.Restaurant;
@@ -40,15 +39,15 @@ public class RestaurantController {
     }
 
     @PostMapping
-    public ResponseEntity<RestaurantResponseDTO> save(@RequestBody RestaurantPostRequestDTO dto) {
-        Restaurant restaurant = restaurantMapper.postRequestDTOToEntity(dto);
+    public ResponseEntity<RestaurantResponseDTO> save(@RequestBody RestaurantRequestDTO dto) {
+        Restaurant restaurant = restaurantMapper.requestDTOToEntity(dto);
         return new ResponseEntity<>(restaurantMapper.toResponseDTO(restaurantService.save(restaurant)), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RestaurantResponseDTO> update(@PathVariable Long id, @RequestBody RestaurantPutRequestDTO dto) {
+    public ResponseEntity<RestaurantResponseDTO> update(@PathVariable Long id, @RequestBody RestaurantRequestDTO dto) {
         try {
-            Restaurant restaurant = restaurantMapper.putRequestDTOToEntity(dto);
+            Restaurant restaurant = restaurantMapper.requestDTOToEntity(dto);
             return ResponseEntity.ok(restaurantMapper.toResponseDTO(restaurantService.update(id, restaurant)));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();

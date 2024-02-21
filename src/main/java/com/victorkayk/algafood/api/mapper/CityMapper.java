@@ -1,7 +1,6 @@
 package com.victorkayk.algafood.api.mapper;
 
-import com.victorkayk.algafood.api.dto.request.CityPostRequestDTO;
-import com.victorkayk.algafood.api.dto.request.CityPutRequestDTO;
+import com.victorkayk.algafood.api.dto.request.CityRequestDTO;
 import com.victorkayk.algafood.api.dto.response.CityResponseDTO;
 import com.victorkayk.algafood.domain.model.City;
 import org.mapstruct.Mapper;
@@ -12,7 +11,5 @@ public interface CityMapper {
 
     City toEntity(CityResponseDTO dto);
 
-    City postRequestDTOToEntity(CityPostRequestDTO dto);
-
-    City putRequestDTOToEntity(CityPutRequestDTO dto);
+    City requestDTOToEntity(CityRequestDTO dto);
 }

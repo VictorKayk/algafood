@@ -1,6 +1,6 @@
 package com.victorkayk.algafood.api.dto.request;
 
-public record KitchenPutRequestDTO(
+public record KitchenRequestDTO(
         String name
 ) {
 }

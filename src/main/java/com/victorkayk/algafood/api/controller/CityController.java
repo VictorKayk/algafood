@@ -1,7 +1,6 @@
 package com.victorkayk.algafood.api.controller;
 
-import com.victorkayk.algafood.api.dto.request.CityPostRequestDTO;
-import com.victorkayk.algafood.api.dto.request.CityPutRequestDTO;
+import com.victorkayk.algafood.api.dto.request.CityRequestDTO;
 import com.victorkayk.algafood.api.dto.response.CityResponseDTO;
 import com.victorkayk.algafood.api.mapper.CityMapper;
 import com.victorkayk.algafood.domain.model.City;
@@ -40,15 +39,15 @@ public class CityController {
     }
 
     @PostMapping
-    public ResponseEntity<CityResponseDTO> save(@RequestBody CityPostRequestDTO dto) {
-        City city = cityMapper.postRequestDTOToEntity(dto);
+    public ResponseEntity<CityResponseDTO> save(@RequestBody CityRequestDTO dto) {
+        City city = cityMapper.requestDTOToEntity(dto);
         return new ResponseEntity<>(cityMapper.toResponseDTO(cityService.save(city)), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CityResponseDTO> update(@PathVariable Long id, @RequestBody CityPutRequestDTO dto) {
+    public ResponseEntity<CityResponseDTO> update(@PathVariable Long id, @RequestBody CityRequestDTO dto) {
         try {
-            City city = cityMapper.putRequestDTOToEntity(dto);
+            City city = cityMapper.requestDTOToEntity(dto);
             return ResponseEntity.ok(cityMapper.toResponseDTO(cityService.update(id, city)));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();

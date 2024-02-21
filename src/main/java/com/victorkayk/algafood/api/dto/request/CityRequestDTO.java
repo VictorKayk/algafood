@@ -1,7 +1,7 @@
 package com.victorkayk.algafood.api.dto.request;
 
-public record CityPutRequestDTO(
+public record CityRequestDTO(
         String name,
-        StatePutRequestDTO state
+        StateRequestDTO state
 ) {
 }
