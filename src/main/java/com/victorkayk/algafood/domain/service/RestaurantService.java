@@ -14,4 +14,8 @@ public interface RestaurantService {
     Restaurant findById(Long id);
 
     Restaurant update(Long id, Restaurant restaurant);
+
+    void activate(Long id);
+
+    void deactivate(Long id);
 }

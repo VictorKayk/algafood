@@ -27,10 +27,10 @@ public class Restaurant {
     @Column(name = "shipping_fee", nullable = false)
     private BigDecimal shippingFee;
 
-    @Column(name = "is_active")
+    @Column(name = "is_active", nullable = false)
     private Boolean isActive = false;
 
-    @Column(name = "is_open")
+    @Column(name = "is_open", nullable = false)
     private Boolean isOpen = false;
 
     @ManyToOne
