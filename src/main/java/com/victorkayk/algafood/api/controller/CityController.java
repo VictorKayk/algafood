@@ -1,8 +1,13 @@
 package com.victorkayk.algafood.api.controller;
 
+import com.victorkayk.algafood.api.dto.request.CityPostRequestDTO;
+import com.victorkayk.algafood.api.dto.request.CityPutRequestDTO;
+import com.victorkayk.algafood.api.dto.response.CityResponseDTO;
+import com.victorkayk.algafood.api.mapper.CityMapper;
 import com.victorkayk.algafood.domain.model.City;
 import com.victorkayk.algafood.domain.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,31 +19,45 @@ public class CityController {
     @Autowired
     private CityService cityService;
 
+    @Autowired
+    private CityMapper cityMapper;
+
     @GetMapping
-    public ResponseEntity<List<City>> list() {
-        return ResponseEntity.ok(cityService.findAll());
+    public ResponseEntity<List<CityResponseDTO>> list() {
+        List<City> cities = cityService.findAll();
+        return ResponseEntity.ok(
+                cities.stream().map(cityMapper::toResponseDTO).toList()
+        );
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<City> findById(@PathVariable Long id) {
+    public ResponseEntity<CityResponseDTO> findById(@PathVariable Long id) {
         try {
-            return ResponseEntity.ok(cityService.findById(id));
+            return ResponseEntity.ok(cityMapper.toResponseDTO(cityService.findById(id)));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
     }
 
     @PostMapping
-    public ResponseEntity<City> save(@RequestBody City city) {
-        return ResponseEntity.ok(cityService.save(city));
+    public ResponseEntity<CityResponseDTO> save(@RequestBody CityPostRequestDTO dto) {
+        City city = cityMapper.postRequestDTOToEntity(dto);
+        return new ResponseEntity<>(cityMapper.toResponseDTO(cityService.save(city)), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<City> update(@PathVariable Long id, @RequestBody City city) {
+    public ResponseEntity<CityResponseDTO> update(@PathVariable Long id, @RequestBody CityPutRequestDTO dto) {
         try {
-            return ResponseEntity.ok(cityService.update(id, city));
+            City city = cityMapper.putRequestDTOToEntity(dto);
+            return ResponseEntity.ok(cityMapper.toResponseDTO(cityService.update(id, city)));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        cityService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

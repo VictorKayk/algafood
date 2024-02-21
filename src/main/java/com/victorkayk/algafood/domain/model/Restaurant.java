@@ -28,10 +28,10 @@ public class Restaurant {
     private BigDecimal shippingFee;
 
     @Column(name = "is_active")
-    private Boolean isActive;
+    private Boolean isActive = false;
 
     @Column(name = "is_open")
-    private Boolean isOpen;
+    private Boolean isOpen = false;
 
     @ManyToOne
     @JoinColumn(name = "kitchen_id", nullable = false)
@@ -56,4 +56,12 @@ public class Restaurant {
 
     @OneToMany(mappedBy = "restaurant")
     private List<Product> products;
+
+    public void activate() {
+        setIsActive(true);
+    }
+
+    public void deactivate() {
+        setIsActive(false);
+    }
 }

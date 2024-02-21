@@ -14,7 +14,11 @@ public enum ErrorEnum {
     CITY_NOT_FOUND("City not found", ErrorTypeEnum.NOT_FOUND),
     KITCHEN_NOT_FOUND("Kitchen not found", ErrorTypeEnum.NOT_FOUND),
     STATE_NOT_FOUND("State not found", ErrorTypeEnum.NOT_FOUND),
-    RESTAURANT_NOT_FOUND("Restaurant not found", ErrorTypeEnum.NOT_FOUND);
+    RESTAURANT_NOT_FOUND("Restaurant not found", ErrorTypeEnum.NOT_FOUND),
+    STATE_IN_USE("State in use", ErrorTypeEnum.BAD_REQUEST),
+    CITY_IN_USE("City in use", ErrorTypeEnum.BAD_REQUEST),
+    KITCHEN_IN_USE("Kitchen in use", ErrorTypeEnum.BAD_REQUEST),
+    RESTAURANT_IN_USE("Restaurant in use", ErrorTypeEnum.BAD_REQUEST);
 
     private final String title;
     private final ErrorTypeEnum status;

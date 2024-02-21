@@ -1,8 +1,13 @@
 package com.victorkayk.algafood.api.controller;
 
+import com.victorkayk.algafood.api.dto.request.RestaurantPostRequestDTO;
+import com.victorkayk.algafood.api.dto.request.RestaurantPutRequestDTO;
+import com.victorkayk.algafood.api.dto.response.RestaurantResponseDTO;
+import com.victorkayk.algafood.api.mapper.RestaurantMapper;
 import com.victorkayk.algafood.domain.model.Restaurant;
 import com.victorkayk.algafood.domain.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,31 +19,45 @@ public class RestaurantController {
     @Autowired
     private RestaurantService restaurantService;
 
+    @Autowired
+    private RestaurantMapper restaurantMapper;
+
     @GetMapping
-    public ResponseEntity<List<Restaurant>> list() {
-        return ResponseEntity.ok(restaurantService.findAll());
+    public ResponseEntity<List<RestaurantResponseDTO>> list() {
+        List<Restaurant> restaurants = restaurantService.findAll();
+        return ResponseEntity.ok(
+                restaurants.stream().map(restaurantMapper::toResponseDTO).toList()
+        );
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Restaurant> findById(@PathVariable Long id) {
+    public ResponseEntity<RestaurantResponseDTO> findById(@PathVariable Long id) {
         try {
-            return ResponseEntity.ok(restaurantService.findById(id));
+            return ResponseEntity.ok(restaurantMapper.toResponseDTO(restaurantService.findById(id)));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
     }
 
     @PostMapping
-    public ResponseEntity<Restaurant> save(@RequestBody Restaurant restaurant) {
-        return ResponseEntity.ok(restaurantService.save(restaurant));
+    public ResponseEntity<RestaurantResponseDTO> save(@RequestBody RestaurantPostRequestDTO dto) {
+        Restaurant restaurant = restaurantMapper.postRequestDTOToEntity(dto);
+        return new ResponseEntity<>(restaurantMapper.toResponseDTO(restaurantService.save(restaurant)), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Restaurant> update(@PathVariable Long id, @RequestBody Restaurant restaurant) {
+    public ResponseEntity<RestaurantResponseDTO> update(@PathVariable Long id, @RequestBody RestaurantPutRequestDTO dto) {
         try {
-            return ResponseEntity.ok(restaurantService.update(id, restaurant));
+            Restaurant restaurant = restaurantMapper.putRequestDTOToEntity(dto);
+            return ResponseEntity.ok(restaurantMapper.toResponseDTO(restaurantService.update(id, restaurant)));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        restaurantService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

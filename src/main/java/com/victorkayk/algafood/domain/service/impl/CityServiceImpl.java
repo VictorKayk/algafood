@@ -3,10 +3,13 @@ package com.victorkayk.algafood.domain.service.impl;
 import com.victorkayk.algafood.domain.enums.ErrorEnum;
 import com.victorkayk.algafood.domain.exception.ApiException;
 import com.victorkayk.algafood.domain.model.City;
+import com.victorkayk.algafood.domain.model.State;
 import com.victorkayk.algafood.domain.repository.CityRepository;
 import com.victorkayk.algafood.domain.service.CityService;
+import com.victorkayk.algafood.domain.service.StateService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,15 +19,26 @@ public class CityServiceImpl implements CityService {
     @Autowired
     private CityRepository cityRepository;
 
+    @Autowired
+    private StateService stateService;
+
     @Override
     public City save(City city) {
+        State state = stateService.findById(city.getState().getId());
+        city.setState(state);
         return cityRepository.save(city);
     }
 
     @Override
     public void delete(Long id) {
         City city = findById(id);
-        cityRepository.delete(city);
+
+        try {
+            cityRepository.delete(city);
+            cityRepository.flush();
+        } catch (DataIntegrityViolationException e) {
+            throw new ApiException(ErrorEnum.CITY_IN_USE);
+        }
     }
 
     @Override

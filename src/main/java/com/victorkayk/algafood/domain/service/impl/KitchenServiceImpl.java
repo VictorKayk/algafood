@@ -7,6 +7,7 @@ import com.victorkayk.algafood.domain.repository.KitchenRepository;
 import com.victorkayk.algafood.domain.service.KitchenService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +25,13 @@ public class KitchenServiceImpl implements KitchenService {
     @Override
     public void delete(Long id) {
         Kitchen kitchen = findById(id);
-        kitchenRepository.delete(kitchen);
+
+        try {
+            kitchenRepository.delete(kitchen);
+            kitchenRepository.flush();
+        } catch (DataIntegrityViolationException e) {
+            throw new ApiException(ErrorEnum.KITCHEN_IN_USE);
+        }
     }
 
     @Override
