@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DatabaseCleaner {
-
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired

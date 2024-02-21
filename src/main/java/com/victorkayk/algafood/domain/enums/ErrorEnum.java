@@ -18,7 +18,9 @@ public enum ErrorEnum {
     STATE_IN_USE("State in use", ErrorTypeEnum.BAD_REQUEST),
     CITY_IN_USE("City in use", ErrorTypeEnum.BAD_REQUEST),
     KITCHEN_IN_USE("Kitchen in use", ErrorTypeEnum.BAD_REQUEST),
-    RESTAURANT_IN_USE("Restaurant in use", ErrorTypeEnum.BAD_REQUEST);
+    RESTAURANT_IN_USE("Restaurant in use", ErrorTypeEnum.BAD_REQUEST),
+    PAYMENT_METHOD_NOT_FOUND("Payment method not found", ErrorTypeEnum.NOT_FOUND),
+    PAYMENT_METHOD_IN_USE("Payment method in use", ErrorTypeEnum.BAD_REQUEST);
 
     private final String title;
     private final ErrorTypeEnum status;

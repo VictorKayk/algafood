@@ -5,7 +5,7 @@ import com.victorkayk.algafood.domain.model.State;
 import java.util.List;
 
 public interface StateService {
-    State save(State city);
+    State save(State state);
 
     void delete(Long id);
 
@@ -13,5 +13,5 @@ public interface StateService {
 
     State findById(Long id);
 
-    State update(Long id, State city);
+    State update(Long id, State state);
 }
