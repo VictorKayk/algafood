@@ -18,4 +18,8 @@ public interface RestaurantService {
     void activate(Long id);
 
     void deactivate(Long id);
+
+    void associatePaymentMethod(Long restaurantId, Long paymentMethodId);
+
+    void disassociatePaymentMethod(Long restaurantId, Long paymentMethodId);
 }

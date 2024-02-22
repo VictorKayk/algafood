@@ -1,8 +1,8 @@
 package com.victorkayk.algafood.api.controller;
 
 import com.victorkayk.algafood.api.dto.request.UserCreateRequestDTO;
-import com.victorkayk.algafood.api.dto.request.UserUpdateRequestDTO;
 import com.victorkayk.algafood.api.dto.request.UserPasswordRequestDTO;
+import com.victorkayk.algafood.api.dto.request.UserUpdateRequestDTO;
 import com.victorkayk.algafood.api.dto.response.UserResponseDTO;
 import com.victorkayk.algafood.api.mapper.UserMapper;
 import com.victorkayk.algafood.domain.model.User;

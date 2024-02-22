@@ -8,6 +8,7 @@ import com.victorkayk.algafood.domain.model.Restaurant;
 import com.victorkayk.algafood.domain.repository.RestaurantRepository;
 import com.victorkayk.algafood.domain.service.CityService;
 import com.victorkayk.algafood.domain.service.KitchenService;
+import com.victorkayk.algafood.domain.service.PaymentMethodService;
 import com.victorkayk.algafood.domain.service.RestaurantService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
@@ -27,6 +28,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Autowired
     private CityService cityService;
+
+    @Autowired
+    private PaymentMethodService paymentMethodService;
 
     @Override
     @Transactional
@@ -91,5 +95,19 @@ public class RestaurantServiceImpl implements RestaurantService {
     public void deactivate(Long id) {
         Restaurant restaurant = findById(id);
         restaurant.deactivate();
+    }
+
+    @Override
+    @Transactional
+    public void associatePaymentMethod(Long restaurantId, Long paymentMethodId) {
+        Restaurant restaurant = findById(restaurantId);
+        restaurant.associatePaymentMethod(paymentMethodService.findById(paymentMethodId));
+    }
+
+    @Override
+    @Transactional
+    public void disassociatePaymentMethod(Long restaurantId, Long paymentMethodId) {
+        Restaurant restaurant = findById(restaurantId);
+        restaurant.disassociatePaymentMethod(paymentMethodService.findById(paymentMethodId));
     }
 }

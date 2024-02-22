@@ -10,6 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "restaurants")
@@ -52,7 +53,7 @@ public class Restaurant {
             joinColumns = @JoinColumn(name = "restaurant_id"),
             inverseJoinColumns = @JoinColumn(name = "payment_method_id")
     )
-    private List<PaymentMethod> paymentMethods;
+    private Set<PaymentMethod> paymentMethods;
 
     @OneToMany(mappedBy = "restaurant")
     private List<Product> products;
@@ -63,5 +64,13 @@ public class Restaurant {
 
     public void deactivate() {
         setIsActive(false);
+    }
+
+    public void associatePaymentMethod(PaymentMethod paymentMethod) {
+        getPaymentMethods().add(paymentMethod);
+    }
+
+    public void disassociatePaymentMethod(PaymentMethod paymentMethod) {
+        getPaymentMethods().remove(paymentMethod);
     }
 }
