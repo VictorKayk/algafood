@@ -10,6 +10,7 @@ public record RestaurantResponseDTO(
         Boolean isActive,
         Boolean isOpen,
         KitchenResponseDTO kitchen,
-        OffsetDateTime createdAt
+        OffsetDateTime createdAt,
+        AddressResponseDTO address
 ) {
 }

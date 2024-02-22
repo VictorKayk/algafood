@@ -5,6 +5,7 @@ import com.victorkayk.algafood.domain.exception.ApiException;
 import com.victorkayk.algafood.domain.model.State;
 import com.victorkayk.algafood.domain.repository.StateRepository;
 import com.victorkayk.algafood.domain.service.StateService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -18,11 +19,13 @@ public class StateServiceImpl implements StateService {
     private StateRepository stateRepository;
 
     @Override
+    @Transactional
     public State save(State city) {
         return stateRepository.save(city);
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         State state = findById(id);
 
@@ -46,6 +49,7 @@ public class StateServiceImpl implements StateService {
     }
 
     @Override
+    @Transactional
     public State update(Long id, State city) {
         State savedState = findById(id);
         BeanUtils.copyProperties(city, savedState, "id");

@@ -5,6 +5,7 @@ import com.victorkayk.algafood.domain.exception.ApiException;
 import com.victorkayk.algafood.domain.model.PaymentMethod;
 import com.victorkayk.algafood.domain.repository.PaymentMethodRepository;
 import com.victorkayk.algafood.domain.service.PaymentMethodService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -18,11 +19,13 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
     private PaymentMethodRepository PaymentMethodRepository;
 
     @Override
+    @Transactional
     public PaymentMethod save(PaymentMethod city) {
         return PaymentMethodRepository.save(city);
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         PaymentMethod PaymentMethod = findById(id);
 
@@ -46,6 +49,7 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
     }
 
     @Override
+    @Transactional
     public PaymentMethod update(Long id, PaymentMethod city) {
         PaymentMethod savedPaymentMethod = findById(id);
         BeanUtils.copyProperties(city, savedPaymentMethod, "id");

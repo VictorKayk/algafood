@@ -7,6 +7,7 @@ import com.victorkayk.algafood.domain.model.State;
 import com.victorkayk.algafood.domain.repository.CityRepository;
 import com.victorkayk.algafood.domain.service.CityService;
 import com.victorkayk.algafood.domain.service.StateService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -23,6 +24,7 @@ public class CityServiceImpl implements CityService {
     private StateService stateService;
 
     @Override
+    @Transactional
     public City save(City city) {
         State state = stateService.findById(city.getState().getId());
         city.setState(state);
@@ -30,6 +32,7 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         City city = findById(id);
 
@@ -53,9 +56,15 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
+    @Transactional
     public City update(Long id, City city) {
         City savedCity = findById(id);
+        State state = stateService.findById(city.getState().getId());
+
+        city.setState(state);
+
         BeanUtils.copyProperties(city, savedCity, "id");
+
         return save(savedCity);
     }
 }

@@ -1,12 +1,22 @@
 package com.victorkayk.algafood.api.dto.request;
 
-import com.victorkayk.algafood.api.dto.response.KitchenIdResponseDTO;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
 public record RestaurantRequestDTO(
+        @NotBlank
         String name,
+
+        @NotNull
+        @Positive
         BigDecimal shippingFee,
-        KitchenIdResponseDTO kitchen
+
+        @Valid
+        @NotNull
+        KitchenIdRequestDTO kitchen
 ) {
 }

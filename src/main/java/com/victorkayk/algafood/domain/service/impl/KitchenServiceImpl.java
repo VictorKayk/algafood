@@ -5,6 +5,7 @@ import com.victorkayk.algafood.domain.exception.ApiException;
 import com.victorkayk.algafood.domain.model.Kitchen;
 import com.victorkayk.algafood.domain.repository.KitchenRepository;
 import com.victorkayk.algafood.domain.service.KitchenService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -18,11 +19,13 @@ public class KitchenServiceImpl implements KitchenService {
     private KitchenRepository kitchenRepository;
 
     @Override
+    @Transactional
     public Kitchen save(Kitchen kitchen) {
         return kitchenRepository.save(kitchen);
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         Kitchen kitchen = findById(id);
 
@@ -46,6 +49,7 @@ public class KitchenServiceImpl implements KitchenService {
     }
 
     @Override
+    @Transactional
     public Kitchen update(Long id, Kitchen kitchen) {
         Kitchen savedKitchen = findById(id);
         BeanUtils.copyProperties(kitchen, savedKitchen, "id");

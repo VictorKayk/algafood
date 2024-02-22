@@ -61,14 +61,14 @@ public class RestaurantController {
     }
 
     @PutMapping("/{id}/activate")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void activate(@PathVariable Long id) {
+    public ResponseEntity<Void> activate(@PathVariable Long id) {
         restaurantService.activate(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}/deactivate")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deactivate(@PathVariable Long id) {
+    public ResponseEntity<Void> deactivate(@PathVariable Long id) {
         restaurantService.deactivate(id);
+        return ResponseEntity.noContent().build();
     }
 }
