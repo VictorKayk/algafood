@@ -20,8 +20,8 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     @Transactional
-    public Group save(Group city) {
-        return groupRepository.save(city);
+    public Group save(Group group) {
+        return groupRepository.save(group);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     @Transactional
-    public Group update(Long id, Group city) {
+    public Group update(Long id, Group group) {
         Group savedGroup = findById(id);
-        BeanUtils.copyProperties(city, savedGroup, "id");
+        BeanUtils.copyProperties(group, savedGroup, "id");
         return save(savedGroup);
     }
 }

@@ -20,8 +20,8 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
 
     @Override
     @Transactional
-    public PaymentMethod save(PaymentMethod city) {
-        return PaymentMethodRepository.save(city);
+    public PaymentMethod save(PaymentMethod paymentMethod) {
+        return PaymentMethodRepository.save(paymentMethod);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
 
     @Override
     @Transactional
-    public PaymentMethod update(Long id, PaymentMethod city) {
+    public PaymentMethod update(Long id, PaymentMethod paymentMethod) {
         PaymentMethod savedPaymentMethod = findById(id);
-        BeanUtils.copyProperties(city, savedPaymentMethod, "id");
+        BeanUtils.copyProperties(paymentMethod, savedPaymentMethod, "id");
         return save(savedPaymentMethod);
     }
 }

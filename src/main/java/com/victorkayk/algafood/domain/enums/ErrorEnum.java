@@ -20,7 +20,9 @@ public enum ErrorEnum {
     KITCHEN_IN_USE("Kitchen in use", ErrorTypeEnum.BAD_REQUEST),
     RESTAURANT_IN_USE("Restaurant in use", ErrorTypeEnum.BAD_REQUEST),
     PAYMENT_METHOD_NOT_FOUND("Payment method not found", ErrorTypeEnum.NOT_FOUND),
-    PAYMENT_METHOD_IN_USE("Payment method in use", ErrorTypeEnum.BAD_REQUEST);
+    PAYMENT_METHOD_IN_USE("Payment method in use", ErrorTypeEnum.BAD_REQUEST),
+    INVALID_PASSWORD("Invalid password", ErrorTypeEnum.BAD_REQUEST),
+    USER_ALREADY_EXISTS("User already exists", ErrorTypeEnum.BAD_REQUEST);
 
     private final String title;
     private final ErrorTypeEnum status;

@@ -20,8 +20,8 @@ public class StateServiceImpl implements StateService {
 
     @Override
     @Transactional
-    public State save(State city) {
-        return stateRepository.save(city);
+    public State save(State state) {
+        return stateRepository.save(state);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class StateServiceImpl implements StateService {
 
     @Override
     @Transactional
-    public State update(Long id, State city) {
+    public State update(Long id, State state) {
         State savedState = findById(id);
-        BeanUtils.copyProperties(city, savedState, "id");
+        BeanUtils.copyProperties(state, savedState, "id");
         return save(savedState);
     }
 }

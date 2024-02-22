@@ -39,4 +39,12 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "group_id")
     )
     private List<Group> groups;
+
+    public boolean passwordMatch(String password) {
+        return getPassword().equals(password);
+    }
+
+    public boolean passwordNotMatch(String password) {
+        return !passwordMatch(password);
+    }
 }
