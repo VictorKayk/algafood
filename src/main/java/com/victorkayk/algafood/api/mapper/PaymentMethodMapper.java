@@ -1,6 +1,7 @@
 package com.victorkayk.algafood.api.mapper;
 
-import com.victorkayk.algafood.api.dto.request.PaymentMethodRequestDTO;
+import com.victorkayk.algafood.api.dto.request.PaymentMethodCreateRequestDTO;
+import com.victorkayk.algafood.api.dto.request.PaymentMethodUpdateRequestDTO;
 import com.victorkayk.algafood.api.dto.response.PaymentMethodResponseDTO;
 import com.victorkayk.algafood.domain.model.PaymentMethod;
 import org.mapstruct.Mapper;
@@ -11,5 +12,11 @@ public interface PaymentMethodMapper {
 
     PaymentMethod toEntity(PaymentMethodResponseDTO dto);
 
-    PaymentMethod requestDTOToEntity(PaymentMethodRequestDTO dto);
+    PaymentMethod createRequestDTOToEntity(PaymentMethodCreateRequestDTO dto);
+
+    PaymentMethodCreateRequestDTO entityToCreateRequestDTO(PaymentMethod entity);
+
+    PaymentMethod updateRequestDTOToEntity(PaymentMethodUpdateRequestDTO dto);
+
+    PaymentMethodUpdateRequestDTO entityToUpdateRequestDTO(PaymentMethod entity);
 }

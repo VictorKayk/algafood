@@ -1,7 +1,7 @@
 package com.victorkayk.algafood.api.controller;
 
 import com.victorkayk.algafood.api.dto.request.UserCreateRequestDTO;
-import com.victorkayk.algafood.api.dto.request.UserPasswordRequestDTO;
+import com.victorkayk.algafood.api.dto.request.UserPasswordUpdateRequestDTO;
 import com.victorkayk.algafood.api.dto.request.UserUpdateRequestDTO;
 import com.victorkayk.algafood.api.dto.response.UserResponseDTO;
 import com.victorkayk.algafood.api.mapper.UserMapper;
@@ -57,7 +57,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updatePassword(@PathVariable Long id, @RequestBody UserPasswordRequestDTO dto) {
+    public ResponseEntity<Void> updatePassword(@PathVariable Long id, @RequestBody UserPasswordUpdateRequestDTO dto) {
         userService.updatePassword(id, dto.password(), dto.newPassword());
         return ResponseEntity.noContent().build();
     }

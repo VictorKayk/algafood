@@ -1,6 +1,7 @@
 package com.victorkayk.algafood.api.controller;
 
-import com.victorkayk.algafood.api.dto.request.PaymentMethodRequestDTO;
+import com.victorkayk.algafood.api.dto.request.PaymentMethodCreateRequestDTO;
+import com.victorkayk.algafood.api.dto.request.PaymentMethodUpdateRequestDTO;
 import com.victorkayk.algafood.api.dto.response.PaymentMethodResponseDTO;
 import com.victorkayk.algafood.api.mapper.PaymentMethodMapper;
 import com.victorkayk.algafood.domain.model.PaymentMethod;
@@ -39,15 +40,15 @@ public class PaymentMethodController {
     }
 
     @PostMapping
-    public ResponseEntity<PaymentMethodResponseDTO> save(@RequestBody PaymentMethodRequestDTO dto) {
-        PaymentMethod PaymentMethod = PaymentMethodMapper.requestDTOToEntity(dto);
+    public ResponseEntity<PaymentMethodResponseDTO> save(@RequestBody PaymentMethodCreateRequestDTO dto) {
+        PaymentMethod PaymentMethod = PaymentMethodMapper.createRequestDTOToEntity(dto);
         return new ResponseEntity<>(PaymentMethodMapper.toResponseDTO(PaymentMethodService.save(PaymentMethod)), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PaymentMethodResponseDTO> update(@PathVariable Long id, @RequestBody PaymentMethodRequestDTO dto) {
+    public ResponseEntity<PaymentMethodResponseDTO> update(@PathVariable Long id, @RequestBody PaymentMethodUpdateRequestDTO dto) {
         try {
-            PaymentMethod PaymentMethod = PaymentMethodMapper.requestDTOToEntity(dto);
+            PaymentMethod PaymentMethod = PaymentMethodMapper.updateRequestDTOToEntity(dto);
             return ResponseEntity.ok(PaymentMethodMapper.toResponseDTO(PaymentMethodService.update(id, PaymentMethod)));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();

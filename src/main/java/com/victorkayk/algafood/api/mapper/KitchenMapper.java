@@ -1,6 +1,7 @@
 package com.victorkayk.algafood.api.mapper;
 
-import com.victorkayk.algafood.api.dto.request.KitchenRequestDTO;
+import com.victorkayk.algafood.api.dto.request.KitchenCreateRequestDTO;
+import com.victorkayk.algafood.api.dto.request.KitchenUpdateRequestDTO;
 import com.victorkayk.algafood.api.dto.response.KitchenResponseDTO;
 import com.victorkayk.algafood.domain.model.Kitchen;
 import org.mapstruct.Mapper;
@@ -11,5 +12,11 @@ public interface KitchenMapper {
 
     Kitchen toEntity(KitchenResponseDTO dto);
 
-    Kitchen requestDTOToEntity(KitchenRequestDTO dto);
+    Kitchen createRequestDTOToEntity(KitchenCreateRequestDTO dto);
+
+    KitchenCreateRequestDTO entityToCreateRequestDTO(Kitchen entity);
+
+    Kitchen updateRequestDTOToEntity(KitchenUpdateRequestDTO dto);
+
+    KitchenUpdateRequestDTO entityToUpdateRequestDTO(Kitchen entity);
 }

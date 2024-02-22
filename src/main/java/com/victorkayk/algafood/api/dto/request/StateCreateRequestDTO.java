@@ -2,8 +2,8 @@ package com.victorkayk.algafood.api.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record PaymentMethodRequestDTO(
+public record StateCreateRequestDTO(
         @NotBlank
-        String description
+        String name
 ) {
 }

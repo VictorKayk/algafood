@@ -1,6 +1,7 @@
 package com.victorkayk.algafood.api.controller;
 
-import com.victorkayk.algafood.api.dto.request.GroupRequestDTO;
+import com.victorkayk.algafood.api.dto.request.GroupCreateRequestDTO;
+import com.victorkayk.algafood.api.dto.request.GroupUpdateRequestDTO;
 import com.victorkayk.algafood.api.dto.response.GroupResponseDTO;
 import com.victorkayk.algafood.api.mapper.GroupMapper;
 import com.victorkayk.algafood.domain.model.Group;
@@ -39,15 +40,15 @@ public class GroupController {
     }
 
     @PostMapping
-    public ResponseEntity<GroupResponseDTO> save(@RequestBody GroupRequestDTO dto) {
-        Group group = groupMapper.requestDTOToEntity(dto);
+    public ResponseEntity<GroupResponseDTO> save(@RequestBody GroupCreateRequestDTO dto) {
+        Group group = groupMapper.createRequestDTOToEntity(dto);
         return new ResponseEntity<>(groupMapper.toResponseDTO(groupService.save(group)), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<GroupResponseDTO> update(@PathVariable Long id, @RequestBody GroupRequestDTO dto) {
+    public ResponseEntity<GroupResponseDTO> update(@PathVariable Long id, @RequestBody GroupUpdateRequestDTO dto) {
         try {
-            Group group = groupMapper.requestDTOToEntity(dto);
+            Group group = groupMapper.updateRequestDTOToEntity(dto);
             return ResponseEntity.ok(groupMapper.toResponseDTO(groupService.update(id, group)));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();

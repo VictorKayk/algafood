@@ -1,6 +1,7 @@
 package com.victorkayk.algafood.api.mapper;
 
-import com.victorkayk.algafood.api.dto.request.RestaurantRequestDTO;
+import com.victorkayk.algafood.api.dto.request.RestaurantCreateRequestDTO;
+import com.victorkayk.algafood.api.dto.request.RestaurantUpdateRequestDTO;
 import com.victorkayk.algafood.api.dto.response.RestaurantResponseDTO;
 import com.victorkayk.algafood.domain.model.Restaurant;
 import com.victorkayk.algafood.domain.model.State;
@@ -14,7 +15,13 @@ public interface RestaurantMapper {
 
     Restaurant toEntity(RestaurantResponseDTO dto);
 
-    Restaurant requestDTOToEntity(RestaurantRequestDTO dto);
+    Restaurant createRequestDTOToEntity(RestaurantCreateRequestDTO dto);
+
+    RestaurantCreateRequestDTO entityToCreateRequestDTO(Restaurant entity);
+
+    Restaurant updateRequestDTOToEntity(RestaurantUpdateRequestDTO dto);
+
+    RestaurantUpdateRequestDTO entityToUpdateRequestDTO(Restaurant entity);
 
     default State map(String value) {
         if (value == null) {
