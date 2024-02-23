@@ -1,7 +1,6 @@
 package com.victorkayk.algafood.api.dto.request;
 
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 
 public record PermissionUpdateRequestDTO(
         @Min(value = 3, message = "The name must be at least 3 characters")

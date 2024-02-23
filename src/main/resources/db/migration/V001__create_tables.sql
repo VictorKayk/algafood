@@ -169,27 +169,32 @@ create table order_items
         foreign key (product_id) references products (id)
 );
 
+-- Table: groups
+create table `groups`
+(
+    id          bigint auto_increment
+        primary key,
+    name     varchar(255) not null
+);
+
 -- Table: user_groups
 create table user_groups
 (
-    id       bigint auto_increment
-        primary key,
-    name     varchar(255) not null,
     user_id  bigint       not null,
     group_id bigint       not null,
     constraint FK_user_groups_groups
-        foreign key (group_id) references user_groups (id),
+        foreign key (group_id) references `groups` (id),
     constraint FK_user_groups_users
         foreign key (user_id) references users (id)
 );
 
--- Table: user_groups_permissions
-create table user_groups_permissions
+-- Table: groups_permissions
+create table groups_permissions
 (
     group_id      bigint not null,
     permission_id bigint not null,
     constraint FK_user_groups_permissions_permissions
         foreign key (permission_id) references permissions (id),
     constraint FK_user_groups_permissions_user_groups
-        foreign key (group_id) references user_groups (id)
+        foreign key (group_id) references `groups` (id)
 );

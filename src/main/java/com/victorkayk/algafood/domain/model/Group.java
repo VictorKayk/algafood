@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.util.Set;
 
 @Entity
-@Table(name = "user_groups")
+@Table(name = "groups")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,7 +22,7 @@ public class Group {
 
     @ManyToMany
     @JoinTable(
-            name = "user_groups_permissions",
+            name = "groups_permissions",
             joinColumns = @JoinColumn(name = "group_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id")
     )

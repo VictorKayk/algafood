@@ -5,11 +5,9 @@ import com.victorkayk.algafood.domain.exception.ApiException;
 import com.victorkayk.algafood.domain.model.City;
 import com.victorkayk.algafood.domain.model.Kitchen;
 import com.victorkayk.algafood.domain.model.Restaurant;
+import com.victorkayk.algafood.domain.model.User;
 import com.victorkayk.algafood.domain.repository.RestaurantRepository;
-import com.victorkayk.algafood.domain.service.CityService;
-import com.victorkayk.algafood.domain.service.KitchenService;
-import com.victorkayk.algafood.domain.service.PaymentMethodService;
-import com.victorkayk.algafood.domain.service.RestaurantService;
+import com.victorkayk.algafood.domain.service.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +29,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Autowired
     private PaymentMethodService paymentMethodService;
+
+    @Autowired
+    private UserService userService;
 
     @Override
     @Transactional
@@ -109,6 +110,22 @@ public class RestaurantServiceImpl implements RestaurantService {
     public void disassociatePaymentMethod(Long restaurantId, Long paymentMethodId) {
         Restaurant restaurant = findById(restaurantId);
         restaurant.disassociatePaymentMethod(paymentMethodService.findById(paymentMethodId));
+    }
+
+    @Override
+    @Transactional
+    public void associateUser(Long restaurantId, Long userId) {
+        Restaurant restaurant = findById(restaurantId);
+        User user = userService.findById(userId);
+        restaurant.associateUser(user);
+    }
+
+    @Override
+    @Transactional
+    public void disassociateUser(Long restaurantId, Long userId) {
+        Restaurant restaurant = findById(restaurantId);
+        User user = userService.findById(userId);
+        restaurant.disassociateUser(user);
     }
 
     @Override

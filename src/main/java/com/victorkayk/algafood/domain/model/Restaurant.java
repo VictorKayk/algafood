@@ -58,6 +58,14 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant")
     private List<Product> products;
 
+    @ManyToMany
+    @JoinTable(
+            name = "restaurant_users",
+            joinColumns = @JoinColumn(name = "restaurant_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<User> users;
+
     public void activate() {
         setIsActive(true);
     }
@@ -80,5 +88,13 @@ public class Restaurant {
 
     public void disassociatePaymentMethod(PaymentMethod paymentMethod) {
         getPaymentMethods().remove(paymentMethod);
+    }
+
+    public void associateUser(User user) {
+        getUsers().add(user);
+    }
+
+    public void disassociateUser(User user) {
+        getUsers().remove(user);
     }
 }

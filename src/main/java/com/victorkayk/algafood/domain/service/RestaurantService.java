@@ -26,4 +26,8 @@ public interface RestaurantService {
     void associatePaymentMethod(Long restaurantId, Long paymentMethodId);
 
     void disassociatePaymentMethod(Long restaurantId, Long paymentMethodId);
+
+    void associateUser(Long restaurantId, Long userId);
+
+    void disassociateUser(Long restaurantId, Long userId);
 }
