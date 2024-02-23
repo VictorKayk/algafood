@@ -110,4 +110,18 @@ public class RestaurantServiceImpl implements RestaurantService {
         Restaurant restaurant = findById(restaurantId);
         restaurant.disassociatePaymentMethod(paymentMethodService.findById(paymentMethodId));
     }
+
+    @Override
+    @Transactional
+    public void open(Long id) {
+        Restaurant restaurant = findById(id);
+        restaurant.open();
+    }
+
+    @Override
+    @Transactional
+    public void close(Long id) {
+        Restaurant restaurant = findById(id);
+        restaurant.close();
+    }
 }

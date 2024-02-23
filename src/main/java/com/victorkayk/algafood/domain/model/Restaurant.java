@@ -66,6 +66,14 @@ public class Restaurant {
         setIsActive(false);
     }
 
+    public void open() {
+        setIsOpen(true);
+    }
+
+    public void close() {
+        setIsOpen(false);
+    }
+
     public void associatePaymentMethod(PaymentMethod paymentMethod) {
         getPaymentMethods().add(paymentMethod);
     }
