@@ -45,7 +45,7 @@ public class StateServiceImpl implements StateService {
     @Override
     public State findById(Long id) {
         return stateRepository.findById(id)
-                .orElseThrow(() -> new ApiException(ErrorEnum.RESTAURANT_NOT_FOUND));
+                .orElseThrow(() -> new ApiException(ErrorEnum.STATE_NOT_FOUND));
     }
 
     @Override

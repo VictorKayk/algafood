@@ -5,7 +5,7 @@ import com.victorkayk.algafood.domain.model.PaymentMethod;
 import java.util.List;
 
 public interface PaymentMethodService {
-    PaymentMethod save(PaymentMethod city);
+    PaymentMethod save(PaymentMethod paymentMethod);
 
     void delete(Long id);
 
@@ -13,5 +13,5 @@ public interface PaymentMethodService {
 
     PaymentMethod findById(Long id);
 
-    PaymentMethod update(Long id, PaymentMethod city);
+    PaymentMethod update(Long id, PaymentMethod paymentMethod);
 }

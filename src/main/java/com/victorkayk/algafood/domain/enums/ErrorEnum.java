@@ -24,6 +24,8 @@ public enum ErrorEnum {
     INVALID_PASSWORD("Invalid password", ErrorTypeEnum.BAD_REQUEST),
     PRODUCT_NOT_FOUND("Product not found", ErrorTypeEnum.NOT_FOUND),
     PRODUCT_IN_USE("Product in use", ErrorTypeEnum.BAD_REQUEST),
+    PERMISSION_IN_USE("Permission in use", ErrorTypeEnum.BAD_REQUEST),
+    PERMISSION_NOT_FOUND("Permission not found", ErrorTypeEnum.NOT_FOUND),
     USER_ALREADY_EXISTS("User already exists", ErrorTypeEnum.BAD_REQUEST);
 
     private final String title;
