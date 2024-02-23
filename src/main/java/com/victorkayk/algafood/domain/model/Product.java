@@ -27,7 +27,7 @@ public class Product {
     private BigDecimal price;
 
     @Column(name = "active", nullable = false)
-    private Boolean active;
+    private Boolean active = true;
 
     @OneToOne
     @JoinColumn(name = "product_photo_id")
