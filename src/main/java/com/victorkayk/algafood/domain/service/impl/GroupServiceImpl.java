@@ -3,8 +3,10 @@ package com.victorkayk.algafood.domain.service.impl;
 import com.victorkayk.algafood.domain.enums.ErrorEnum;
 import com.victorkayk.algafood.domain.exception.ApiException;
 import com.victorkayk.algafood.domain.model.Group;
+import com.victorkayk.algafood.domain.model.Permission;
 import com.victorkayk.algafood.domain.repository.GroupRepository;
 import com.victorkayk.algafood.domain.service.GroupService;
+import com.victorkayk.algafood.domain.service.PermissionService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ import java.util.List;
 public class GroupServiceImpl implements GroupService {
     @Autowired
     private GroupRepository groupRepository;
+
+    @Autowired
+    private PermissionService permissionService;
 
     @Override
     @Transactional
@@ -54,5 +59,21 @@ public class GroupServiceImpl implements GroupService {
         Group savedGroup = findById(id);
         BeanUtils.copyProperties(group, savedGroup, "id");
         return save(savedGroup);
+    }
+
+    @Override
+    @Transactional
+    public void associatePermission(Long groupId, Long permissionId) {
+        Group group = findById(groupId);
+        Permission permission = permissionService.findById(permissionId);
+        group.associatePermission(permission);
+    }
+
+    @Override
+    @Transactional
+    public void disassociatePermission(Long groupId, Long permissionId) {
+        Group group = findById(groupId);
+        Permission permission = permissionService.findById(permissionId);
+        group.disassociatePermission(permission);
     }
 }

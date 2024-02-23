@@ -14,4 +14,8 @@ public interface GroupService {
     Group findById(Long id);
 
     Group update(Long id, Group group);
+
+    void associatePermission(Long groupId, Long permissionId);
+
+    void disassociatePermission(Long groupId, Long permissionId);
 }
