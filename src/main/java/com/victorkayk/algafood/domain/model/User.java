@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.OffsetDateTime;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -38,7 +38,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "group_id")
     )
-    private List<Group> groups;
+    private Set<Group> groups;
 
     public boolean passwordMatch(String password) {
         return getPassword().equals(password);
@@ -46,5 +46,13 @@ public class User {
 
     public boolean passwordNotMatch(String password) {
         return !passwordMatch(password);
+    }
+
+    public void associateGroup(Group group) {
+        getGroups().add(group);
+    }
+
+    public void disassociateGroup(Group group) {
+        getGroups().remove(group);
     }
 }

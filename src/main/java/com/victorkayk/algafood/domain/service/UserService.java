@@ -16,4 +16,8 @@ public interface UserService {
     User update(Long id, User user);
 
     void updatePassword(Long id, String password, String newPassword);
+
+    void associateGroup(Long userId, Long groupId);
+
+    void disassociateGroup(Long userId, Long groupId);
 }

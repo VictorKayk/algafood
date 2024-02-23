@@ -2,8 +2,10 @@ package com.victorkayk.algafood.domain.service.impl;
 
 import com.victorkayk.algafood.domain.enums.ErrorEnum;
 import com.victorkayk.algafood.domain.exception.ApiException;
+import com.victorkayk.algafood.domain.model.Group;
 import com.victorkayk.algafood.domain.model.User;
 import com.victorkayk.algafood.domain.repository.UserRepository;
+import com.victorkayk.algafood.domain.service.GroupService;
 import com.victorkayk.algafood.domain.service.UserService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
@@ -18,6 +20,9 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository stateRepository;
+
+    @Autowired
+    private GroupService groupService;
 
     @Override
     @Transactional
@@ -64,6 +69,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void updatePassword(Long id, String password, String newPassword) {
         User user = findById(id);
 
@@ -72,5 +78,21 @@ public class UserServiceImpl implements UserService {
         }
 
         user.setPassword(newPassword);
+    }
+
+    @Override
+    @Transactional
+    public void associateGroup(Long userId, Long groupId) {
+        User user = findById(userId);
+        Group group = groupService.findById(groupId);
+        user.associateGroup(group);
+    }
+
+    @Override
+    @Transactional
+    public void disassociateGroup(Long userId, Long groupId) {
+        User user = findById(userId);
+        Group group = groupService.findById(groupId);
+        user.disassociateGroup(group);
     }
 }
