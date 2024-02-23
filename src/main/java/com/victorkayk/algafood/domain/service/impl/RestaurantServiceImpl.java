@@ -93,9 +93,21 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     @Transactional
+    public void activate(List<Long> ids) {
+        restaurantRepository.updateIsActive(ids, true);
+    }
+
+    @Override
+    @Transactional
     public void deactivate(Long id) {
         Restaurant restaurant = findById(id);
         restaurant.deactivate();
+    }
+
+    @Override
+    @Transactional
+    public void deactivate(List<Long> ids) {
+        restaurantRepository.updateIsActive(ids, false);
     }
 
     @Override

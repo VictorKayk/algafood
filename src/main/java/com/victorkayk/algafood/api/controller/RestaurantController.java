@@ -1,5 +1,6 @@
 package com.victorkayk.algafood.api.controller;
 
+import com.victorkayk.algafood.api.dto.request.IdsRequestDTO;
 import com.victorkayk.algafood.api.dto.request.RestaurantCreateRequestDTO;
 import com.victorkayk.algafood.api.dto.request.RestaurantUpdateRequestDTO;
 import com.victorkayk.algafood.api.dto.response.RestaurantResponseDTO;
@@ -63,9 +64,21 @@ public class RestaurantController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("/activate")
+    public ResponseEntity<Void> activateRestaurants(@RequestBody IdsRequestDTO dto) {
+        restaurantService.activate(dto.ids());
+        return ResponseEntity.noContent().build();
+    }
+
     @PutMapping("/{id}/activate")
     public ResponseEntity<Void> activate(@PathVariable Long id) {
         restaurantService.activate(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/deactivate")
+    public ResponseEntity<Void> deactivateRestaurants(@RequestBody IdsRequestDTO dto) {
+        restaurantService.deactivate(dto.ids());
         return ResponseEntity.noContent().build();
     }
 

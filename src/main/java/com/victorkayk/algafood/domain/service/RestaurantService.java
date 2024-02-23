@@ -17,7 +17,11 @@ public interface RestaurantService {
 
     void activate(Long id);
 
+    void activate(List<Long> ids);
+
     void deactivate(Long id);
+
+    void deactivate(List<Long> ids);
 
     void open(Long id);
 
