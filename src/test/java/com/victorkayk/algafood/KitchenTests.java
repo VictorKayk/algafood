@@ -13,29 +13,29 @@ import org.springframework.test.context.TestPropertySource;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource("/application-test.properties")
 class KitchenTests {
-	@LocalServerPort
-	private int port;
+    @LocalServerPort
+    private int port;
 
-	@Autowired
-	private DatabaseCleaner databaseCleaner;
+    @Autowired
+    private DatabaseCleaner databaseCleaner;
 
-	@BeforeEach
-	public void before() {
-		RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
-		RestAssured.port = port;
-		RestAssured.basePath = "/kitchens";
+    @BeforeEach
+    public void before() {
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+        RestAssured.port = port;
+        RestAssured.basePath = "/kitchens";
 
-		databaseCleaner.clearTables();
-	}
+        databaseCleaner.clearTables();
+    }
 
-	@Test
-	public void shouldReturn200WhenGetKitchens() {
-		RestAssured
-				.given()
-					.accept(ContentType.JSON)
-				.when()
-					.get()
-				.then()
-					.statusCode(200);
-	}
+    @Test
+    public void shouldReturn200WhenGetKitchens() {
+        RestAssured
+                .given()
+                .accept(ContentType.JSON)
+                .when()
+                .get()
+                .then()
+                .statusCode(200);
+    }
 }
