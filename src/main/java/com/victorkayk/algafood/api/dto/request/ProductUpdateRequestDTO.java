@@ -11,6 +11,6 @@ public record ProductUpdateRequestDTO(
         Boolean active,
 
         @Valid
-        RestaurantIdRequestDTO restaurant
+        IdRequestDTO restaurant
 ) {
 }

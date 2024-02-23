@@ -20,6 +20,6 @@ public record ProductCreateRequestDTO(
 
         @NotNull
         @Valid
-        RestaurantIdRequestDTO restaurant
+        IdRequestDTO restaurant
 ) {
 }

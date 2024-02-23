@@ -1,6 +1,6 @@
 package com.victorkayk.algafood.api.dto.request;
 
-public record RestaurantIdRequestDTO(
+public record IdRequestDTO(
         Long id
 ) {
 }

@@ -6,6 +6,6 @@ public record AddressRequest(
         String number,
         String complement,
         String district,
-        CityIdRequestDTO city
+        IdRequestDTO city
 ) {
 }

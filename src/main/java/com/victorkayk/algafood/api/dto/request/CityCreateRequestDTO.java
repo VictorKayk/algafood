@@ -10,6 +10,6 @@ public record CityCreateRequestDTO(
 
         @Valid
         @NotNull
-        StateIdRequestDTO state
+        IdRequestDTO state
 ) {
 }

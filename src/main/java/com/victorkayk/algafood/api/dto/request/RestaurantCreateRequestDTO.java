@@ -17,7 +17,7 @@ public record RestaurantCreateRequestDTO(
 
         @Valid
         @NotNull
-        KitchenIdRequestDTO kitchen,
+        IdRequestDTO kitchen,
 
         @Valid
         @NotNull

@@ -12,6 +12,6 @@ public record RestaurantUpdateRequestDTO(
         BigDecimal shippingFee,
 
         @Valid
-        KitchenIdRequestDTO kitchen
+        IdRequestDTO kitchen
 ) {
 }

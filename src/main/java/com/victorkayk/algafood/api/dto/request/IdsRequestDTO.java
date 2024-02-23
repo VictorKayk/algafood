@@ -4,7 +4,8 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
-public record IdsRequestDTO (
-    @NotNull
-    List<Long> ids
-) {}
+public record IdsRequestDTO(
+        @NotNull
+        List<Long> ids
+) {
+}

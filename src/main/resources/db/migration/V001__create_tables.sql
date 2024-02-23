@@ -172,16 +172,16 @@ create table order_items
 -- Table: groups
 create table `groups`
 (
-    id          bigint auto_increment
+    id   bigint auto_increment
         primary key,
-    name     varchar(255) not null
+    name varchar(255) not null
 );
 
 -- Table: user_groups
 create table user_groups
 (
-    user_id  bigint       not null,
-    group_id bigint       not null,
+    user_id  bigint not null,
+    group_id bigint not null,
     constraint FK_user_groups_groups
         foreign key (group_id) references `groups` (id),
     constraint FK_user_groups_users

@@ -6,6 +6,6 @@ public record CityUpdateRequestDTO(
         String name,
 
         @Valid
-        StateIdRequestDTO state
+        IdRequestDTO state
 ) {
 }
