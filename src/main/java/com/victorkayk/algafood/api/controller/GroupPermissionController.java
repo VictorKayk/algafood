@@ -4,12 +4,14 @@ import com.victorkayk.algafood.api.dto.response.PermissionResponseDTO;
 import com.victorkayk.algafood.api.mapper.PermissionMapper;
 import com.victorkayk.algafood.domain.model.Group;
 import com.victorkayk.algafood.domain.service.GroupService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Groups", description = "Group permission endpoints")
 @RestController
 @RequestMapping("/groups/{groupId}/permissions")
 public class GroupPermissionController {

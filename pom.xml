@@ -12,11 +12,12 @@
 	<artifactId>algafood</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>algafood</name>
-	<description>Demo project for Spring Boot</description>
+	<description>API for AlgaFood</description>
 	<properties>
 		<java.version>21</java.version>
 		<mapstruct.version>1.5.5.Final</mapstruct.version>
 		<rest-assured.version>5.4.0</rest-assured.version>
+		<springdoc.version>2.2.0</springdoc.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -74,6 +75,15 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>${springdoc.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 	</dependencies>
 

@@ -7,6 +7,7 @@ import com.victorkayk.algafood.api.dto.response.UserResponseDTO;
 import com.victorkayk.algafood.api.mapper.UserMapper;
 import com.victorkayk.algafood.domain.model.User;
 import com.victorkayk.algafood.domain.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Users", description = "User endpoints")
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -56,7 +58,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/password")
     public ResponseEntity<Void> updatePassword(@PathVariable Long id, @RequestBody UserPasswordUpdateRequestDTO dto) {
         userService.updatePassword(id, dto.password(), dto.newPassword());
         return ResponseEntity.noContent().build();

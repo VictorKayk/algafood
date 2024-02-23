@@ -6,6 +6,7 @@ import com.victorkayk.algafood.api.dto.response.PermissionResponseDTO;
 import com.victorkayk.algafood.api.mapper.PermissionMapper;
 import com.victorkayk.algafood.domain.model.Permission;
 import com.victorkayk.algafood.domain.service.PermissionService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Permissions", description = "Permission endpoints")
 @RestController
 @RequestMapping("/permissions")
 public class PermissionController {

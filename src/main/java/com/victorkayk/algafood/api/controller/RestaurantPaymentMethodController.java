@@ -4,12 +4,14 @@ import com.victorkayk.algafood.api.dto.response.PaymentMethodResponseDTO;
 import com.victorkayk.algafood.api.mapper.PaymentMethodMapper;
 import com.victorkayk.algafood.domain.model.Restaurant;
 import com.victorkayk.algafood.domain.service.RestaurantService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Restaurants", description = "Restaurant endpoints")
 @RestController
 @RequestMapping("/restaurants/{restaurantId}/payment-methods")
 public class RestaurantPaymentMethodController {

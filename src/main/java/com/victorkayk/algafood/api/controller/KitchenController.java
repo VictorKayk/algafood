@@ -6,6 +6,7 @@ import com.victorkayk.algafood.api.dto.response.KitchenResponseDTO;
 import com.victorkayk.algafood.api.mapper.KitchenMapper;
 import com.victorkayk.algafood.domain.model.Kitchen;
 import com.victorkayk.algafood.domain.service.KitchenService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Kitchens", description = "Kitchen endpoints")
 @RestController
 @RequestMapping("/kitchens")
 public class KitchenController {

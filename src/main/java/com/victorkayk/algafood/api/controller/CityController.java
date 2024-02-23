@@ -6,6 +6,7 @@ import com.victorkayk.algafood.api.dto.response.CityResponseDTO;
 import com.victorkayk.algafood.api.mapper.CityMapper;
 import com.victorkayk.algafood.domain.model.City;
 import com.victorkayk.algafood.domain.service.CityService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Cities", description = "City endpoints")
 @RestController
 @RequestMapping("/cities")
 public class CityController {

@@ -6,6 +6,7 @@ import com.victorkayk.algafood.api.dto.response.StateResponseDTO;
 import com.victorkayk.algafood.api.mapper.StateMapper;
 import com.victorkayk.algafood.domain.model.State;
 import com.victorkayk.algafood.domain.service.StateService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "States", description = "State endpoints")
 @RestController
 @RequestMapping("/states")
 public class StateController {

@@ -6,6 +6,7 @@ import com.victorkayk.algafood.api.dto.response.GroupResponseDTO;
 import com.victorkayk.algafood.api.mapper.GroupMapper;
 import com.victorkayk.algafood.domain.model.Group;
 import com.victorkayk.algafood.domain.service.GroupService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Groups", description = "Group endpoints")
 @RestController
 @RequestMapping("/groups")
 public class GroupController {

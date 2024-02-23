@@ -17,6 +17,10 @@ public record RestaurantCreateRequestDTO(
 
         @Valid
         @NotNull
-        KitchenIdRequestDTO kitchen
+        KitchenIdRequestDTO kitchen,
+
+        @Valid
+        @NotNull
+        AddressRequest address
 ) {
 }

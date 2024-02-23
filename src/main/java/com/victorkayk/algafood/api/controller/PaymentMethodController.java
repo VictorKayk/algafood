@@ -6,6 +6,7 @@ import com.victorkayk.algafood.api.dto.response.PaymentMethodResponseDTO;
 import com.victorkayk.algafood.api.mapper.PaymentMethodMapper;
 import com.victorkayk.algafood.domain.model.PaymentMethod;
 import com.victorkayk.algafood.domain.service.PaymentMethodService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Payment Methods", description = "Payment method endpoints")
 @RestController
 @RequestMapping("/payment-methods")
 public class PaymentMethodController {
