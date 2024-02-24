@@ -35,11 +35,7 @@ public class RestaurantController {
 
     @GetMapping("/{id}")
     public ResponseEntity<RestaurantResponseDTO> findById(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(restaurantMapper.toResponseDTO(restaurantService.findById(id)));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(restaurantMapper.toResponseDTO(restaurantService.findById(id)));
     }
 
     @PostMapping
@@ -50,12 +46,8 @@ public class RestaurantController {
 
     @PutMapping("/{id}")
     public ResponseEntity<RestaurantResponseDTO> update(@PathVariable Long id, @RequestBody RestaurantUpdateRequestDTO dto) {
-        try {
-            Restaurant restaurant = restaurantMapper.updateRequestDTOToEntity(dto);
-            return ResponseEntity.ok(restaurantMapper.toResponseDTO(restaurantService.update(id, restaurant)));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        Restaurant restaurant = restaurantMapper.updateRequestDTOToEntity(dto);
+        return ResponseEntity.ok(restaurantMapper.toResponseDTO(restaurantService.update(id, restaurant)));
     }
 
     @DeleteMapping("/{id}")

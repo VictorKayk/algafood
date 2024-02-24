@@ -16,12 +16,12 @@ import java.util.List;
 @Service
 public class PermissionServiceImpl implements PermissionService {
     @Autowired
-    private PermissionRepository PermissionRepository;
+    private PermissionRepository permissionRepository;
 
     @Override
     @Transactional
     public Permission save(Permission Permission) {
-        return PermissionRepository.save(Permission);
+        return permissionRepository.save(Permission);
     }
 
     @Override
@@ -30,8 +30,8 @@ public class PermissionServiceImpl implements PermissionService {
         Permission Permission = findById(id);
 
         try {
-            PermissionRepository.delete(Permission);
-            PermissionRepository.flush();
+            permissionRepository.delete(Permission);
+            permissionRepository.flush();
         } catch (DataIntegrityViolationException e) {
             throw new ApiException(ErrorEnum.PERMISSION_IN_USE);
         }
@@ -39,12 +39,12 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public List<Permission> findAll() {
-        return PermissionRepository.findAll();
+        return permissionRepository.findAll();
     }
 
     @Override
     public Permission findById(Long id) {
-        return PermissionRepository.findById(id)
+        return permissionRepository.findById(id)
                 .orElseThrow(() -> new ApiException(ErrorEnum.PERMISSION_NOT_FOUND));
     }
 
@@ -53,6 +53,6 @@ public class PermissionServiceImpl implements PermissionService {
     public Permission update(Long id, Permission Permission) {
         Permission savedPermission = findById(id);
         BeanUtils.copyProperties(Permission, savedPermission, "id");
-        return save(savedPermission);
+        return permissionRepository.save(savedPermission);
     }
 }

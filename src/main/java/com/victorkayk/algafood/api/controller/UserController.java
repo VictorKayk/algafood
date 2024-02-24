@@ -35,11 +35,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDTO> findById(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(userMapper.toResponseDTO(userService.findById(id)));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(userMapper.toResponseDTO(userService.findById(id)));
     }
 
     @PostMapping
@@ -50,12 +46,8 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity<UserResponseDTO> update(@PathVariable Long id, @RequestBody UserUpdateRequestDTO dto) {
-        try {
-            User user = userMapper.updateRequestDTOToEntity(dto);
-            return ResponseEntity.ok(userMapper.toResponseDTO(userService.update(id, user)));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        User user = userMapper.updateRequestDTOToEntity(dto);
+        return ResponseEntity.ok(userMapper.toResponseDTO(userService.update(id, user)));
     }
 
     @PutMapping("/{id}/password")

@@ -58,7 +58,7 @@ public class GroupServiceImpl implements GroupService {
     public Group update(Long id, Group group) {
         Group savedGroup = findById(id);
         BeanUtils.copyProperties(group, savedGroup, "id");
-        return save(savedGroup);
+        return groupRepository.save(savedGroup);
     }
 
     @Override

@@ -53,6 +53,6 @@ public class KitchenServiceImpl implements KitchenService {
     public Kitchen update(Long id, Kitchen kitchen) {
         Kitchen savedKitchen = findById(id);
         BeanUtils.copyProperties(kitchen, savedKitchen, "id");
-        return save(savedKitchen);
+        return kitchenRepository.save(savedKitchen);
     }
 }

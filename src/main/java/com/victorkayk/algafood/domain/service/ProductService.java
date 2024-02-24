@@ -11,6 +11,8 @@ public interface ProductService {
 
     List<Product> findAll(Long restaurantId);
 
+    Product findById(Long id);
+
     Product findById(Long restaurantId, Long id);
 
     Product update(Long restaurantId, Long id, Product Product);

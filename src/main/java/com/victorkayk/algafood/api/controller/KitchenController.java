@@ -34,11 +34,7 @@ public class KitchenController {
 
     @GetMapping("/{id}")
     public ResponseEntity<KitchenResponseDTO> findById(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(kitchenMapper.toResponseDTO(kitchenService.findById(id)));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(kitchenMapper.toResponseDTO(kitchenService.findById(id)));
     }
 
     @PostMapping
@@ -49,12 +45,8 @@ public class KitchenController {
 
     @PutMapping("/{id}")
     public ResponseEntity<KitchenResponseDTO> update(@PathVariable Long id, @RequestBody KitchenUpdateRequestDTO dto) {
-        try {
-            Kitchen kitchen = kitchenMapper.updateRequestDTOToEntity(dto);
-            return ResponseEntity.ok(kitchenMapper.toResponseDTO(kitchenService.update(id, kitchen)));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        Kitchen kitchen = kitchenMapper.updateRequestDTOToEntity(dto);
+        return ResponseEntity.ok(kitchenMapper.toResponseDTO(kitchenService.update(id, kitchen)));
     }
 
     @DeleteMapping("/{id}")

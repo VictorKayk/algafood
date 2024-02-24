@@ -34,11 +34,7 @@ public class PaymentMethodController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PaymentMethodResponseDTO> findById(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(PaymentMethodMapper.toResponseDTO(PaymentMethodService.findById(id)));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(PaymentMethodMapper.toResponseDTO(PaymentMethodService.findById(id)));
     }
 
     @PostMapping
@@ -49,12 +45,8 @@ public class PaymentMethodController {
 
     @PutMapping("/{id}")
     public ResponseEntity<PaymentMethodResponseDTO> update(@PathVariable Long id, @RequestBody PaymentMethodUpdateRequestDTO dto) {
-        try {
-            PaymentMethod PaymentMethod = PaymentMethodMapper.updateRequestDTOToEntity(dto);
-            return ResponseEntity.ok(PaymentMethodMapper.toResponseDTO(PaymentMethodService.update(id, PaymentMethod)));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        PaymentMethod PaymentMethod = PaymentMethodMapper.updateRequestDTOToEntity(dto);
+        return ResponseEntity.ok(PaymentMethodMapper.toResponseDTO(PaymentMethodService.update(id, PaymentMethod)));
     }
 
     @DeleteMapping("/{id}")

@@ -34,11 +34,7 @@ public class PermissionController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PermissionResponseDTO> findById(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(permissionMapper.toResponseDTO(permissionService.findById(id)));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(permissionMapper.toResponseDTO(permissionService.findById(id)));
     }
 
     @PostMapping
@@ -49,12 +45,8 @@ public class PermissionController {
 
     @PutMapping("/{id}")
     public ResponseEntity<PermissionResponseDTO> update(@PathVariable Long id, @RequestBody PermissionUpdateRequestDTO dto) {
-        try {
-            Permission permission = permissionMapper.updateRequestDTOToEntity(dto);
-            return ResponseEntity.ok(permissionMapper.toResponseDTO(permissionService.update(id, permission)));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        Permission permission = permissionMapper.updateRequestDTOToEntity(dto);
+        return ResponseEntity.ok(permissionMapper.toResponseDTO(permissionService.update(id, permission)));
     }
 
     @DeleteMapping("/{id}")

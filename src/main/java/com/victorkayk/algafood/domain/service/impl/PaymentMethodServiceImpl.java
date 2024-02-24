@@ -16,12 +16,12 @@ import java.util.List;
 @Service
 public class PaymentMethodServiceImpl implements PaymentMethodService {
     @Autowired
-    private PaymentMethodRepository PaymentMethodRepository;
+    private PaymentMethodRepository paymentMethodRepository;
 
     @Override
     @Transactional
     public PaymentMethod save(PaymentMethod paymentMethod) {
-        return PaymentMethodRepository.save(paymentMethod);
+        return paymentMethodRepository.save(paymentMethod);
     }
 
     @Override
@@ -30,8 +30,8 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
         PaymentMethod PaymentMethod = findById(id);
 
         try {
-            PaymentMethodRepository.delete(PaymentMethod);
-            PaymentMethodRepository.flush();
+            paymentMethodRepository.delete(PaymentMethod);
+            paymentMethodRepository.flush();
         } catch (DataIntegrityViolationException e) {
             throw new ApiException(ErrorEnum.PAYMENT_METHOD_IN_USE);
         }
@@ -39,12 +39,12 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
 
     @Override
     public List<PaymentMethod> findAll() {
-        return PaymentMethodRepository.findAll();
+        return paymentMethodRepository.findAll();
     }
 
     @Override
     public PaymentMethod findById(Long id) {
-        return PaymentMethodRepository.findById(id)
+        return paymentMethodRepository.findById(id)
                 .orElseThrow(() -> new ApiException(ErrorEnum.PAYMENT_METHOD_NOT_FOUND));
     }
 
@@ -53,6 +53,6 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
     public PaymentMethod update(Long id, PaymentMethod paymentMethod) {
         PaymentMethod savedPaymentMethod = findById(id);
         BeanUtils.copyProperties(paymentMethod, savedPaymentMethod, "id");
-        return save(savedPaymentMethod);
+        return paymentMethodRepository.save(savedPaymentMethod);
     }
 }

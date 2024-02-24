@@ -21,11 +21,15 @@ public enum ErrorEnum {
     RESTAURANT_IN_USE("Restaurant in use", ErrorTypeEnum.BAD_REQUEST),
     PAYMENT_METHOD_NOT_FOUND("Payment method not found", ErrorTypeEnum.NOT_FOUND),
     PAYMENT_METHOD_IN_USE("Payment method in use", ErrorTypeEnum.BAD_REQUEST),
+    PAYMENT_METHOD_NOT_AVAILABLE("Payment method not available", ErrorTypeEnum.BAD_REQUEST),
     INVALID_PASSWORD("Invalid password", ErrorTypeEnum.BAD_REQUEST),
     PRODUCT_NOT_FOUND("Product not found", ErrorTypeEnum.NOT_FOUND),
     PRODUCT_IN_USE("Product in use", ErrorTypeEnum.BAD_REQUEST),
     PERMISSION_IN_USE("Permission in use", ErrorTypeEnum.BAD_REQUEST),
     PERMISSION_NOT_FOUND("Permission not found", ErrorTypeEnum.NOT_FOUND),
+    ORDER_IN_USE("Order in use", ErrorTypeEnum.BAD_REQUEST),
+    ORDER_NOT_FOUND("Order not found", ErrorTypeEnum.NOT_FOUND),
+    NO_SUCH_METHOD("No such method", ErrorTypeEnum.BAD_REQUEST),
     USER_ALREADY_EXISTS("User already exists", ErrorTypeEnum.BAD_REQUEST);
 
     private final String title;

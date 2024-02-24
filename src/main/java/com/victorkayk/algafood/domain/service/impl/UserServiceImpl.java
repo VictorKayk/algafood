@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
     public User update(Long id, User user) {
         User savedUser = findById(id);
         BeanUtils.copyProperties(user, savedUser, "id");
-        return save(savedUser);
+        return stateRepository.save(savedUser);
     }
 
     @Override

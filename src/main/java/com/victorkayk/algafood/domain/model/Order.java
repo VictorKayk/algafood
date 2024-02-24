@@ -10,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
@@ -61,6 +62,29 @@ public class Order {
     @JoinColumn(name = "user_id", nullable = false)
     private User client;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> items;
+
+    public void setOrderToOrderItems() {
+        items.forEach(item -> item.setOrder(this));
+    }
+
+    public BigDecimal getSubTotal() {
+        this.subtotal = items
+                .stream()
+                .map(OrderItem::getTotalPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        return this.subtotal;
+    }
+
+    public BigDecimal getShippingFee() {
+        this.shippingFee = restaurant.getShippingFee();
+        return this.shippingFee;
+    }
+
+    public BigDecimal getTotal() {
+        this.total = getSubTotal().add(getShippingFee());
+        return total;
+    }
 }

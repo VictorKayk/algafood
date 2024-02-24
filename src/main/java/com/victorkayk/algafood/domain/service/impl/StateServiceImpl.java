@@ -53,6 +53,6 @@ public class StateServiceImpl implements StateService {
     public State update(Long id, State state) {
         State savedState = findById(id);
         BeanUtils.copyProperties(state, savedState, "id");
-        return save(savedState);
+        return stateRepository.save(savedState);
     }
 }

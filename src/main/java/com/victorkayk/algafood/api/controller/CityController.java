@@ -34,11 +34,7 @@ public class CityController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CityResponseDTO> findById(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(cityMapper.toResponseDTO(cityService.findById(id)));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(cityMapper.toResponseDTO(cityService.findById(id)));
     }
 
     @PostMapping
@@ -49,12 +45,8 @@ public class CityController {
 
     @PutMapping("/{id}")
     public ResponseEntity<CityResponseDTO> update(@PathVariable Long id, @RequestBody CityUpdateRequestDTO dto) {
-        try {
-            City city = cityMapper.updateRequestDTOToEntity(dto);
-            return ResponseEntity.ok(cityMapper.toResponseDTO(cityService.update(id, city)));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        City city = cityMapper.updateRequestDTOToEntity(dto);
+        return ResponseEntity.ok(cityMapper.toResponseDTO(cityService.update(id, city)));
     }
 
     @DeleteMapping("/{id}")

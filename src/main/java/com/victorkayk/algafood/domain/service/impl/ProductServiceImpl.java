@@ -53,6 +53,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Product findById(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ApiException(ErrorEnum.PRODUCT_NOT_FOUND));
+    }
+
+    @Override
     public Product findById(Long restaurantId, Long id) {
         restaurantService.findById(restaurantId);
 
@@ -70,6 +76,6 @@ public class ProductServiceImpl implements ProductService {
 
         BeanUtils.copyProperties(Product, savedProduct, "id");
 
-        return save(savedProduct);
+        return productRepository.save(savedProduct);
     }
 }

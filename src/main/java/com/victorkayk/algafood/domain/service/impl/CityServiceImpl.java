@@ -65,6 +65,6 @@ public class CityServiceImpl implements CityService {
 
         BeanUtils.copyProperties(city, savedCity, "id");
 
-        return save(savedCity);
+        return cityRepository.save(savedCity);
     }
 }

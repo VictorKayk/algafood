@@ -97,4 +97,12 @@ public class Restaurant {
     public void disassociateUser(User user) {
         getUsers().remove(user);
     }
+
+    public Boolean isPaymentMethodAvailable(PaymentMethod paymentMethod) {
+        return this.paymentMethods.contains(paymentMethod);
+    }
+
+    public Boolean isPaymentMethodNotAvailable(PaymentMethod paymentMethod) {
+        return !isPaymentMethodAvailable(paymentMethod);
+    }
 }

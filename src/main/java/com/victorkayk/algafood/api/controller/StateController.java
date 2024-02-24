@@ -34,11 +34,7 @@ public class StateController {
 
     @GetMapping("/{id}")
     public ResponseEntity<StateResponseDTO> findById(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(stateMapper.toResponseDTO(stateService.findById(id)));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(stateMapper.toResponseDTO(stateService.findById(id)));
     }
 
     @PostMapping
@@ -49,12 +45,8 @@ public class StateController {
 
     @PutMapping("/{id}")
     public ResponseEntity<StateResponseDTO> update(@PathVariable Long id, @RequestBody StateUpdateRequestDTO dto) {
-        try {
-            State state = stateMapper.updateRequestDTOToEntity(dto);
-            return ResponseEntity.ok(stateMapper.toResponseDTO(stateService.update(id, state)));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        State state = stateMapper.updateRequestDTOToEntity(dto);
+        return ResponseEntity.ok(stateMapper.toResponseDTO(stateService.update(id, state)));
     }
 
     @DeleteMapping("/{id}")

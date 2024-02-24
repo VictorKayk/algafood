@@ -34,11 +34,7 @@ public class GroupController {
 
     @GetMapping("/{id}")
     public ResponseEntity<GroupResponseDTO> findById(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(groupMapper.toResponseDTO(groupService.findById(id)));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(groupMapper.toResponseDTO(groupService.findById(id)));
     }
 
     @PostMapping
@@ -49,12 +45,8 @@ public class GroupController {
 
     @PutMapping("/{id}")
     public ResponseEntity<GroupResponseDTO> update(@PathVariable Long id, @RequestBody GroupUpdateRequestDTO dto) {
-        try {
-            Group group = groupMapper.updateRequestDTOToEntity(dto);
-            return ResponseEntity.ok(groupMapper.toResponseDTO(groupService.update(id, group)));
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+        Group group = groupMapper.updateRequestDTOToEntity(dto);
+        return ResponseEntity.ok(groupMapper.toResponseDTO(groupService.update(id, group)));
     }
 
     @DeleteMapping("/{id}")

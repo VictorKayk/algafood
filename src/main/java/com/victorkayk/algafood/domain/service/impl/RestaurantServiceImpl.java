@@ -81,7 +81,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
         BeanUtils.copyProperties(restaurant, savedRestaurant, "id");
 
-        return save(savedRestaurant);
+        return restaurantRepository.save(savedRestaurant);
     }
 
     @Override
