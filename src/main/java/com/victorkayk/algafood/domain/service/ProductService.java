@@ -9,7 +9,7 @@ public interface ProductService {
 
     void delete(Long restaurantId, Long id);
 
-    List<Product> findAll(Long restaurantId);
+    List<Product> findAll(Long restaurantId, Boolean inactive);
 
     Product findById(Long id);
 

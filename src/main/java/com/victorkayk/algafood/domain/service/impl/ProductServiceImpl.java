@@ -47,9 +47,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAll(Long restaurantId) {
+    public List<Product> findAll(Long restaurantId, Boolean inactive) {
         restaurantService.findById(restaurantId);
-        return productRepository.findAll(restaurantId);
+
+        if (inactive != null && inactive) return productRepository.findAll(restaurantId);
+        return productRepository.findAllActive(restaurantId);
     }
 
     @Override

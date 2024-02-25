@@ -30,10 +30,13 @@ public class RestaurantProductController {
     private ProductMapper productMapper;
 
     @GetMapping
-    public ResponseEntity<List<ProductResponseDTO>> list(@PathVariable Long restaurantId) {
+    public ResponseEntity<List<ProductResponseDTO>> list(
+            @PathVariable Long restaurantId,
+            @RequestParam(required = false) Boolean inactive
+    ) {
         restaurantService.findById(restaurantId);
 
-        return ResponseEntity.ok(productMapper.toResponseDTO(productService.findAll(restaurantId)));
+        return ResponseEntity.ok(productMapper.toResponseDTO(productService.findAll(restaurantId, inactive)));
     }
 
     @GetMapping("/{productId}")

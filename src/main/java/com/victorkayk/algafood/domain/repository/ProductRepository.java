@@ -21,4 +21,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Modifying
     @Query("DELETE FROM Product p WHERE p.restaurant.id = :restaurantId AND p.id = :id")
     void delete(@Param("restaurantId") Long restaurantId, @Param("id") Long id);
+
+    @Query("SELECT p FROM Product p WHERE p.restaurant.id = :restaurantId AND p.active = true")
+    List<Product> findAllActive(@Param("restaurantId") Long restaurantId);
 }
