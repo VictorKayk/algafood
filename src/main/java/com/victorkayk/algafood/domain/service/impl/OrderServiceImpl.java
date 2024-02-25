@@ -1,6 +1,7 @@
 package com.victorkayk.algafood.domain.service.impl;
 
 import com.victorkayk.algafood.domain.enums.ErrorEnum;
+import com.victorkayk.algafood.domain.enums.StatusOrderEnum;
 import com.victorkayk.algafood.domain.exception.ApiException;
 import com.victorkayk.algafood.domain.model.Order;
 import com.victorkayk.algafood.domain.model.PaymentMethod;
@@ -107,5 +108,19 @@ public class OrderServiceImpl implements OrderService {
         savedOrder.calculateTotal();
 
         return orderRepository.save(savedOrder);
+    }
+
+    @Override
+    @Transactional
+    public void updateStatus(Long id, StatusOrderEnum status) {
+        Order order = findById(id);
+
+        if (order.isUpdateStatusNotValid(status)) {
+            throw new ApiException(ErrorEnum.INVALID_STATUS_UPDATE);
+        }
+
+        if (status.equals(StatusOrderEnum.CONFIRMED)) order.confirm();
+        else if (status.equals(StatusOrderEnum.DELIVERED)) order.deliver();
+        else if (status.equals(StatusOrderEnum.CANCELED)) order.cancel();
     }
 }

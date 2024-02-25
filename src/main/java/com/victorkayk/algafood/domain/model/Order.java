@@ -69,21 +69,54 @@ public class Order {
     }
 
     public BigDecimal calculateSubtotal() {
-        this.subtotal = items
-                .stream()
-                .map(OrderItem::getTotalPrice)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        setSubtotal(
+                items.stream()
+                        .map(OrderItem::getTotalPrice)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add)
+        );
 
         return this.subtotal;
     }
 
     public BigDecimal calculateShippingFee() {
-        this.shippingFee = restaurant.getShippingFee();
+        setShippingFee(restaurant.getShippingFee());
         return this.shippingFee;
     }
 
     public BigDecimal calculateTotal() {
-        this.total = calculateSubtotal().add(calculateShippingFee());
+        setTotal(calculateSubtotal().add(calculateShippingFee()));
         return total;
+    }
+
+    public boolean isUpdateStatusValid(StatusOrderEnum status) {
+        if (this.getStatus().equals(StatusOrderEnum.CREATED)) {
+            return status.equals(StatusOrderEnum.CONFIRMED) || status.equals(StatusOrderEnum.CANCELED);
+        } else if (this.getStatus().equals(StatusOrderEnum.CONFIRMED)) {
+            return status.equals(StatusOrderEnum.DELIVERED);
+        }
+        return false;
+    }
+
+    public boolean isUpdateStatusNotValid(StatusOrderEnum status) {
+        return !isUpdateStatusValid(status);
+    }
+
+    public void setStatus(StatusOrderEnum status) {
+        if (isUpdateStatusValid(status)) this.status = status;
+    }
+
+    public void confirm() {
+        setStatus(StatusOrderEnum.CONFIRMED);
+        setConfirmedAt(OffsetDateTime.now());
+    }
+
+    public void deliver() {
+        setStatus(StatusOrderEnum.DELIVERED);
+        setDeliveredAt(OffsetDateTime.now());
+    }
+
+    public void cancel() {
+        setStatus(StatusOrderEnum.CANCELED);
+        setCanceledAt(OffsetDateTime.now());
     }
 }

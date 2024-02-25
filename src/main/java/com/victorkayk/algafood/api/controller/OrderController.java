@@ -2,6 +2,7 @@ package com.victorkayk.algafood.api.controller;
 
 import com.victorkayk.algafood.api.dto.request.OrderCreateRequestDTO;
 import com.victorkayk.algafood.api.dto.request.OrderUpdateRequestDTO;
+import com.victorkayk.algafood.api.dto.request.OrderUpdateStatusRequestDTO;
 import com.victorkayk.algafood.api.dto.response.OrderResponseDTO;
 import com.victorkayk.algafood.api.dto.response.OrderSimplifiedResponseDTO;
 import com.victorkayk.algafood.api.mapper.OrderMapper;
@@ -51,6 +52,12 @@ public class OrderController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         orderService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<OrderSimplifiedResponseDTO> updateStatus(@PathVariable Long id, @RequestBody OrderUpdateStatusRequestDTO dto) {
+        orderService.updateStatus(id, dto.status());
         return ResponseEntity.noContent().build();
     }
 }

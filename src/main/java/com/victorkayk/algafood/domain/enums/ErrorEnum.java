@@ -30,6 +30,7 @@ public enum ErrorEnum {
     PERMISSION_NOT_FOUND("Permission not found", ErrorTypeEnum.NOT_FOUND),
     ORDER_IN_USE("Order in use", ErrorTypeEnum.BAD_REQUEST),
     ORDER_NOT_FOUND("Order not found", ErrorTypeEnum.NOT_FOUND),
+    INVALID_STATUS_UPDATE("Invalid status update", ErrorTypeEnum.BAD_REQUEST),
     NO_SUCH_METHOD("No such method", ErrorTypeEnum.BAD_REQUEST),
     USER_ALREADY_EXISTS("User already exists", ErrorTypeEnum.BAD_REQUEST);
 
