@@ -15,10 +15,10 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("select o from Order o join fetch o.client join fetch o.restaurant r join fetch r.kitchen")
     List<Order> findAll();
 
-    @Query("select o from Order o join fetch o.items i join fetch i.product join fetch o.client join fetch o.paymentMethod join fetch o.restaurant r join fetch r.kitchen join fetch o.address.city c  join fetch c.state where o.id = :id")
-    Optional<Order> findById(@Param("id") Long id);
+    @Query("select o from Order o join fetch o.items i join fetch i.product join fetch o.client join fetch o.paymentMethod join fetch o.restaurant r join fetch r.kitchen join fetch o.address.city c  join fetch c.state where o.uuid = :uuid")
+    Optional<Order> findByUuid(String uuid);
 
     @Modifying
-    @Query("delete from OrderItem oi where oi.order.id = :id")
-    void deleteOrderItems(@Param("id") Long id);
+    @Query("delete from OrderItem oi where oi.order.uuid = :uuid")
+    void deleteOrderItems(@Param("uuid") String uuid);
 }

@@ -14,12 +14,16 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface OrderMapper {
     @Mapping(source = "address.city.state.name", target = "address.city.state")
+    @Mapping(source = "uuid", target = "id")
     OrderResponseDTO toResponseDTO(Order entity);
 
+    @Mapping(source = "uuid", target = "id")
     List<OrderSimplifiedResponseDTO> toSimplifiedResponseDTO(List<Order> entity);
 
+    @Mapping(source = "uuid", target = "id")
     OrderSimplifiedResponseDTO toSimplifiedResponseDTO(Order entity);
 
+    @Mapping(source = "id", target = "uuid")
     Order toEntity(OrderSimplifiedResponseDTO dto);
 
     Order createRequestDTOToEntity(OrderCreateRequestDTO dto);

@@ -10,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "orders")
@@ -20,6 +21,9 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "uuid", nullable = false)
+    private String uuid;
 
     @Column(name = "subtotal")
     private BigDecimal subtotal;
@@ -63,6 +67,11 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderItem> items;
+
+    @PrePersist
+    private void setUuid() {
+        this.uuid = UUID.randomUUID().toString();
+    }
 
     public void setOrderToOrderItems() {
         items.forEach(item -> item.setOrder(this));

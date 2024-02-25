@@ -7,7 +7,7 @@ import java.time.OffsetDateTime;
 import java.util.List;
 
 public record OrderResponseDTO(
-        Long id,
+        String id,
         BigDecimal subtotal,
         BigDecimal shippingFee,
         BigDecimal total,

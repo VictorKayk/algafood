@@ -33,8 +33,8 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OrderResponseDTO> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(orderMapper.toResponseDTO(orderService.findById(id)));
+    public ResponseEntity<OrderResponseDTO> findById(@PathVariable String id) {
+        return ResponseEntity.ok(orderMapper.toResponseDTO(orderService.findByUuid(id)));
     }
 
     @PostMapping
@@ -44,19 +44,19 @@ public class OrderController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OrderSimplifiedResponseDTO> update(@PathVariable Long id, @RequestBody OrderUpdateRequestDTO dto) {
+    public ResponseEntity<OrderSimplifiedResponseDTO> update(@PathVariable String id, @RequestBody OrderUpdateRequestDTO dto) {
         Order order = orderMapper.updateRequestDTOToEntity(dto);
         return ResponseEntity.ok(orderMapper.toSimplifiedResponseDTO(orderService.update(id, order)));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable String id) {
         orderService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}/status")
-    public ResponseEntity<OrderSimplifiedResponseDTO> updateStatus(@PathVariable Long id, @RequestBody OrderUpdateStatusRequestDTO dto) {
+    public ResponseEntity<OrderSimplifiedResponseDTO> updateStatus(@PathVariable String id, @RequestBody OrderUpdateStatusRequestDTO dto) {
         orderService.updateStatus(id, dto.status());
         return ResponseEntity.noContent().build();
     }

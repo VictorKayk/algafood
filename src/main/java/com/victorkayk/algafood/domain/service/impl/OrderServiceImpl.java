@@ -61,8 +61,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void delete(Long id) {
-        Order order = findById(id);
+    public void delete(String uuid) {
+        Order order = findByUuid(uuid);
 
         try {
             orderRepository.delete(order);
@@ -78,15 +78,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order findById(Long id) {
-        return orderRepository.findById(id)
+    public Order findByUuid(String uuid) {
+        return orderRepository.findByUuid(uuid)
                 .orElseThrow(() -> new ApiException(ErrorEnum.ORDER_NOT_FOUND));
     }
 
     @Override
     @Transactional
-    public Order update(Long id, Order order) {
-        Order savedOrder = findById(id);
+    public Order update(String uuid, Order order) {
+        Order savedOrder = findByUuid(uuid);
         userService.findById(order.getClient().getId());
 
         PaymentMethod paymentMethod = paymentMethodService.findById(order.getPaymentMethod().getId());
@@ -95,9 +95,9 @@ public class OrderServiceImpl implements OrderService {
             throw new ApiException(ErrorEnum.PAYMENT_METHOD_NOT_AVAILABLE);
         }
 
-        orderRepository.deleteOrderItems(id);
+        orderRepository.deleteOrderItems(uuid);
 
-        BeanUtils.copyProperties(order, savedOrder, "id", "total", "createdAt");
+        BeanUtils.copyProperties(order, savedOrder, "id", "uuid", "total", "createdAt");
 
         savedOrder.setOrderToOrderItems();
         order.getItems().forEach(orderItem -> {
@@ -112,8 +112,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void updateStatus(Long id, StatusOrderEnum status) {
-        Order order = findById(id);
+    public void updateStatus(String uuid, StatusOrderEnum status) {
+        Order order = findByUuid(uuid);
 
         if (order.isUpdateStatusNotValid(status)) {
             throw new ApiException(ErrorEnum.INVALID_STATUS_UPDATE);

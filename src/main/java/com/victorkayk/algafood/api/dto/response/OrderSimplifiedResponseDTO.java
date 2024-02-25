@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
 public record OrderSimplifiedResponseDTO(
-        Long id,
+        String id,
         BigDecimal subtotal,
         BigDecimal shippingFee,
         BigDecimal total,

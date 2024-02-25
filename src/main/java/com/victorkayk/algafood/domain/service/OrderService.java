@@ -8,13 +8,13 @@ import java.util.List;
 public interface OrderService {
     Order save(Order order);
 
-    void delete(Long id);
+    void delete(String uuid);
 
     List<Order> findAll();
 
-    Order findById(Long id);
+    Order findByUuid(String uuid);
 
-    Order update(Long id, Order order);
+    Order update(String uuid, Order order);
 
-    void updateStatus(Long id, StatusOrderEnum status);
+    void updateStatus(String uuid, StatusOrderEnum status);
 }
