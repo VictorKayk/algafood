@@ -3,6 +3,7 @@ package com.victorkayk.algafood.api.controller;
 import com.victorkayk.algafood.api.dto.request.OrderCreateRequestDTO;
 import com.victorkayk.algafood.api.dto.request.OrderUpdateRequestDTO;
 import com.victorkayk.algafood.api.dto.response.OrderResponseDTO;
+import com.victorkayk.algafood.api.dto.response.OrderSimplifiedResponseDTO;
 import com.victorkayk.algafood.api.mapper.OrderMapper;
 import com.victorkayk.algafood.domain.model.Order;
 import com.victorkayk.algafood.domain.service.OrderService;
@@ -25,11 +26,9 @@ public class OrderController {
     private OrderMapper orderMapper;
 
     @GetMapping
-    public ResponseEntity<List<OrderResponseDTO>> list() {
+    public ResponseEntity<List<OrderSimplifiedResponseDTO>> list() {
         List<Order> orders = orderService.findAll();
-        return ResponseEntity.ok(
-                orders.stream().map(orderMapper::toResponseDTO).toList()
-        );
+        return ResponseEntity.ok(orderMapper.toSimplifiedResponseDTO(orders));
     }
 
     @GetMapping("/{id}")
@@ -38,15 +37,15 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderResponseDTO> save(@RequestBody OrderCreateRequestDTO dto) {
+    public ResponseEntity<OrderSimplifiedResponseDTO> save(@RequestBody OrderCreateRequestDTO dto) {
         Order order = orderMapper.createRequestDTOToEntity(dto);
-        return new ResponseEntity<>(orderMapper.toResponseDTO(orderService.save(order)), HttpStatus.CREATED);
+        return new ResponseEntity<>(orderMapper.toSimplifiedResponseDTO(orderService.save(order)), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OrderResponseDTO> update(@PathVariable Long id, @RequestBody OrderUpdateRequestDTO dto) {
+    public ResponseEntity<OrderSimplifiedResponseDTO> update(@PathVariable Long id, @RequestBody OrderUpdateRequestDTO dto) {
         Order order = orderMapper.updateRequestDTOToEntity(dto);
-        return ResponseEntity.ok(orderMapper.toResponseDTO(orderService.update(id, order)));
+        return ResponseEntity.ok(orderMapper.toSimplifiedResponseDTO(orderService.update(id, order)));
     }
 
     @DeleteMapping("/{id}")

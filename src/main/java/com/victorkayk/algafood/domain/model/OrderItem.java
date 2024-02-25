@@ -46,4 +46,15 @@ public class OrderItem {
         this.totalPrice = getUnitPrice().multiply(BigDecimal.valueOf(quantity));
         return this.totalPrice;
     }
+
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+                "id=" + id +
+                ", unitPrice=" + unitPrice +
+                ", quantity=" + quantity +
+                ", totalPrice=" + totalPrice +
+                ", note='" + note + '\'' +
+                '}';
+    }
 }

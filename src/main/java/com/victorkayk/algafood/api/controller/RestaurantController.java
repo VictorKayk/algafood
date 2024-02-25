@@ -28,9 +28,7 @@ public class RestaurantController {
     @GetMapping
     public ResponseEntity<List<RestaurantResponseDTO>> list() {
         List<Restaurant> restaurants = restaurantService.findAll();
-        return ResponseEntity.ok(
-                restaurants.stream().map(restaurantMapper::toResponseDTO).toList()
-        );
+        return ResponseEntity.ok(restaurantMapper.toResponseDTO(restaurants));
     }
 
     @GetMapping("/{id}")

@@ -8,8 +8,13 @@ import com.victorkayk.algafood.domain.model.State;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface RestaurantMapper {
+    @Mapping(source = "address.city.state.name", target = "address.city.state")
+    List<RestaurantResponseDTO> toResponseDTO(List<Restaurant> entity);
+
     @Mapping(source = "address.city.state.name", target = "address.city.state")
     RestaurantResponseDTO toResponseDTO(Restaurant entity);
 

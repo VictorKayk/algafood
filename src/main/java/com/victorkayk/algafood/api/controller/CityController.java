@@ -27,9 +27,7 @@ public class CityController {
     @GetMapping
     public ResponseEntity<List<CityResponseDTO>> list() {
         List<City> cities = cityService.findAll();
-        return ResponseEntity.ok(
-                cities.stream().map(cityMapper::toResponseDTO).toList()
-        );
+        return ResponseEntity.ok(cityMapper.toResponseDTO(cities));
     }
 
     @GetMapping("/{id}")

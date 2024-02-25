@@ -27,9 +27,7 @@ public class StateController {
     @GetMapping
     public ResponseEntity<List<StateResponseDTO>> list() {
         List<State> states = stateService.findAll();
-        return ResponseEntity.ok(
-                states.stream().map(stateMapper::toResponseDTO).toList()
-        );
+        return ResponseEntity.ok(stateMapper.toResponseDTO(states));
     }
 
     @GetMapping("/{id}")

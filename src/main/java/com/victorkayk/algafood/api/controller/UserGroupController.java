@@ -24,9 +24,7 @@ public class UserGroupController {
     @GetMapping
     public ResponseEntity<List<GroupResponseDTO>> listGroupsFromUser(@PathVariable Long userId) {
         User user = userService.findById(userId);
-        return ResponseEntity.ok(
-                user.getGroups().stream().map(groupMapper::toResponseDTO).toList()
-        );
+        return ResponseEntity.ok(groupMapper.toResponseDTO(user.getGroups()));
     }
 
     @PutMapping("/{groupId}")

@@ -26,10 +26,8 @@ public class PaymentMethodController {
 
     @GetMapping
     public ResponseEntity<List<PaymentMethodResponseDTO>> list() {
-        List<PaymentMethod> PaymentMethods = PaymentMethodService.findAll();
-        return ResponseEntity.ok(
-                PaymentMethods.stream().map(PaymentMethodMapper::toResponseDTO).toList()
-        );
+        List<PaymentMethod> paymentMethods = PaymentMethodService.findAll();
+        return ResponseEntity.ok(PaymentMethodMapper.toResponseDTO(paymentMethods));
     }
 
     @GetMapping("/{id}")

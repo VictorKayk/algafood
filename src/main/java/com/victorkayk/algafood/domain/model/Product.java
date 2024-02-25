@@ -29,11 +29,11 @@ public class Product {
     @Column(name = "active", nullable = false)
     private Boolean active = true;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_photo_id")
     private ProductPhoto productPhoto;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 }

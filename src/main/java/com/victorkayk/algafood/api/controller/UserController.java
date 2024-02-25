@@ -28,9 +28,7 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<UserResponseDTO>> list() {
         List<User> users = userService.findAll();
-        return ResponseEntity.ok(
-                users.stream().map(userMapper::toResponseDTO).toList()
-        );
+        return ResponseEntity.ok(userMapper.toResponseDTO(users));
     }
 
     @GetMapping("/{id}")

@@ -24,9 +24,7 @@ public class GroupPermissionController {
     @GetMapping
     public ResponseEntity<List<PermissionResponseDTO>> listPermissionsFromGroup(@PathVariable Long groupId) {
         Group group = groupService.findById(groupId);
-        return ResponseEntity.ok(
-                group.getPermissions().stream().map(permissionMapper::toResponseDTO).toList()
-        );
+        return ResponseEntity.ok(permissionMapper.toResponseDTO(group.getPermissions()));
     }
 
     @PutMapping("/{permissionId}")

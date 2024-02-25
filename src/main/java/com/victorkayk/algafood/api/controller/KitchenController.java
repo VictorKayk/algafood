@@ -27,9 +27,7 @@ public class KitchenController {
     @GetMapping
     public ResponseEntity<List<KitchenResponseDTO>> list() {
         List<Kitchen> kitchens = kitchenService.findAll();
-        return ResponseEntity.ok(
-                kitchens.stream().map(kitchenMapper::toResponseDTO).toList()
-        );
+        return ResponseEntity.ok(kitchenMapper.toResponseDTO(kitchens));
     }
 
     @GetMapping("/{id}")

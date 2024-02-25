@@ -24,9 +24,7 @@ public class RestaurantPaymentMethodController {
     @GetMapping
     public ResponseEntity<List<PaymentMethodResponseDTO>> listPaymentMethodsFromRestaurant(@PathVariable Long restaurantId) {
         Restaurant restaurant = restaurantService.findById(restaurantId);
-        return ResponseEntity.ok(
-                restaurant.getPaymentMethods().stream().map(paymentMethodMapper::toResponseDTO).toList()
-        );
+        return ResponseEntity.ok(paymentMethodMapper.toResponseDTO(restaurant.getPaymentMethods()));
     }
 
     @PutMapping("/{paymentMethodId}")

@@ -7,7 +7,6 @@ import com.victorkayk.algafood.domain.enums.ErrorEnum;
 import com.victorkayk.algafood.domain.enums.ErrorTypeEnum;
 import com.victorkayk.algafood.domain.exception.ApiException;
 import com.victorkayk.algafood.domain.exception.ExceptionResponse;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;

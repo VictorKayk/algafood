@@ -50,7 +50,7 @@ public class OrderServiceImpl implements OrderService {
             orderItem.setProduct(product);
         });
         order.setRestaurant(restaurant);
-        order.getTotal();
+        order.calculateTotal();
 
         return orderRepository.save(order);
     }
@@ -101,7 +101,7 @@ public class OrderServiceImpl implements OrderService {
             orderItem.setProduct(product);
         });
         savedOrder.setRestaurant(restaurant);
-        savedOrder.getTotal();
+        savedOrder.calculateTotal();
 
         return orderRepository.save(savedOrder);
     }

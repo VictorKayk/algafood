@@ -33,9 +33,7 @@ public class RestaurantProductController {
     public ResponseEntity<List<ProductResponseDTO>> list(@PathVariable Long restaurantId) {
         restaurantService.findById(restaurantId);
 
-        return ResponseEntity.ok(
-                productService.findAll(restaurantId).stream().map(productMapper::toResponseDTO).toList()
-        );
+        return ResponseEntity.ok(productMapper.toResponseDTO(productService.findAll(restaurantId)));
     }
 
     @GetMapping("/{productId}")

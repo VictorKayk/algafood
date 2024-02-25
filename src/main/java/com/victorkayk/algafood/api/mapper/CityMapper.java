@@ -6,8 +6,12 @@ import com.victorkayk.algafood.api.dto.response.CityResponseDTO;
 import com.victorkayk.algafood.domain.model.City;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface CityMapper {
+    List<CityResponseDTO> toResponseDTO(List<City> entity);
+
     CityResponseDTO toResponseDTO(City entity);
 
     City toEntity(CityResponseDTO dto);

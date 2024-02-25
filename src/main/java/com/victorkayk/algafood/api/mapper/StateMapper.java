@@ -6,8 +6,12 @@ import com.victorkayk.algafood.api.dto.response.StateResponseDTO;
 import com.victorkayk.algafood.domain.model.State;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface StateMapper {
+    List<StateResponseDTO> toResponseDTO(List<State> entity);
+
     StateResponseDTO toResponseDTO(State entity);
 
     State toEntity(StateResponseDTO dto);

@@ -27,9 +27,7 @@ public class GroupController {
     @GetMapping
     public ResponseEntity<List<GroupResponseDTO>> list() {
         List<Group> groups = groupService.findAll();
-        return ResponseEntity.ok(
-                groups.stream().map(groupMapper::toResponseDTO).toList()
-        );
+        return ResponseEntity.ok(groupMapper.toResponseDTO(groups));
     }
 
     @GetMapping("/{id}")

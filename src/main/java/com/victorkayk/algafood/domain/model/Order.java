@@ -10,7 +10,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "orders")
@@ -50,26 +49,26 @@ public class Order {
     @Embedded
     private Address address;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "payment_method_id", nullable = false)
     private PaymentMethod paymentMethod;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User client;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderItem> items;
 
     public void setOrderToOrderItems() {
         items.forEach(item -> item.setOrder(this));
     }
 
-    public BigDecimal getSubTotal() {
+    public BigDecimal calculateSubtotal() {
         this.subtotal = items
                 .stream()
                 .map(OrderItem::getTotalPrice)
@@ -78,13 +77,13 @@ public class Order {
         return this.subtotal;
     }
 
-    public BigDecimal getShippingFee() {
+    public BigDecimal calculateShippingFee() {
         this.shippingFee = restaurant.getShippingFee();
         return this.shippingFee;
     }
 
-    public BigDecimal getTotal() {
-        this.total = getSubTotal().add(getShippingFee());
+    public BigDecimal calculateTotal() {
+        this.total = calculateSubtotal().add(calculateShippingFee());
         return total;
     }
 }

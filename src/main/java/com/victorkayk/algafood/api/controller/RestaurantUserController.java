@@ -24,9 +24,7 @@ public class RestaurantUserController {
     @GetMapping
     public ResponseEntity<List<UserResponseDTO>> listResponsiblesFromRestaurant(@PathVariable Long restaurantId) {
         Restaurant restaurant = restaurantService.findById(restaurantId);
-        return ResponseEntity.ok(
-                restaurant.getUsers().stream().map(userMapper::toResponseDTO).toList()
-        );
+        return ResponseEntity.ok(userMapper.toResponseDTO(restaurant.getUsers()));
     }
 
     @PutMapping("/{userId}")

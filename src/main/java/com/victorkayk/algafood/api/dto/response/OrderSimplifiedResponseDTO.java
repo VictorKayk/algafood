@@ -4,9 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.List;
 
-public record OrderResponseDTO(
+public record OrderSimplifiedResponseDTO(
         Long id,
         BigDecimal subtotal,
         BigDecimal shippingFee,
@@ -14,10 +13,7 @@ public record OrderResponseDTO(
         String status,
         @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
         OffsetDateTime createdAt,
-        AddressResponseDTO address,
-        PaymentMethodResponseDTO paymentMethod,
         UserResponseDTO client,
-        RestaurantSimplifiedResponseDTO restaurant,
-        List<OrderItemResponseDTO> items
+        RestaurantSimplifiedResponseDTO restaurant
 ) {
 }
