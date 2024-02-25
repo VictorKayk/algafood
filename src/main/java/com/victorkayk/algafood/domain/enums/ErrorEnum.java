@@ -25,6 +25,7 @@ public enum ErrorEnum {
     INVALID_PASSWORD("Invalid password", ErrorTypeEnum.BAD_REQUEST),
     PRODUCT_NOT_FOUND("Product not found", ErrorTypeEnum.NOT_FOUND),
     PRODUCT_IN_USE("Product in use", ErrorTypeEnum.BAD_REQUEST),
+    PRODUCT_METHOD_NOT_AVAILABLE("Product method not available", ErrorTypeEnum.BAD_REQUEST),
     PERMISSION_IN_USE("Permission in use", ErrorTypeEnum.BAD_REQUEST),
     PERMISSION_NOT_FOUND("Permission not found", ErrorTypeEnum.NOT_FOUND),
     ORDER_IN_USE("Order in use", ErrorTypeEnum.BAD_REQUEST),

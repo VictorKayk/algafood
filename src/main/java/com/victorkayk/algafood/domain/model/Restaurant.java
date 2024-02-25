@@ -105,4 +105,12 @@ public class Restaurant {
     public Boolean isPaymentMethodNotAvailable(PaymentMethod paymentMethod) {
         return !isPaymentMethodAvailable(paymentMethod);
     }
+
+    public boolean isProductAvailable(Product product) {
+        return this.products.contains(product);
+    }
+
+    public boolean isProductNotAvailable(Product product) {
+        return !isProductAvailable(product);
+    }
 }

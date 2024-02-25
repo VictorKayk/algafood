@@ -47,6 +47,9 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderToOrderItems();
         order.getItems().forEach(orderItem -> {
             Product product = productService.findById(orderItem.getProduct().getId());
+            if (restaurant.isProductNotAvailable(product)) {
+                throw new ApiException(ErrorEnum.PRODUCT_METHOD_NOT_AVAILABLE);
+            }
             orderItem.setProduct(product);
         });
         order.setRestaurant(restaurant);
