@@ -1,6 +1,7 @@
 package com.victorkayk.algafood.api.controller;
 
 import com.victorkayk.algafood.api.dto.request.OrderCreateRequestDTO;
+import com.victorkayk.algafood.api.dto.request.OrderFilterRequestDTO;
 import com.victorkayk.algafood.api.dto.request.OrderUpdateRequestDTO;
 import com.victorkayk.algafood.api.dto.request.OrderUpdateStatusRequestDTO;
 import com.victorkayk.algafood.api.dto.response.OrderResponseDTO;
@@ -27,8 +28,8 @@ public class OrderController {
     private OrderMapper orderMapper;
 
     @GetMapping
-    public ResponseEntity<List<OrderSimplifiedResponseDTO>> list() {
-        List<Order> orders = orderService.findAll();
+    public ResponseEntity<List<OrderSimplifiedResponseDTO>> list(OrderFilterRequestDTO dto) {
+        List<Order> orders = orderService.findAll(orderMapper.toOrderFilterDTO(dto));
         return ResponseEntity.ok(orderMapper.toSimplifiedResponseDTO(orders));
     }
 

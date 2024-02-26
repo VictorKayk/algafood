@@ -1,9 +1,11 @@
 package com.victorkayk.algafood.api.mapper;
 
 import com.victorkayk.algafood.api.dto.request.OrderCreateRequestDTO;
+import com.victorkayk.algafood.api.dto.request.OrderFilterRequestDTO;
 import com.victorkayk.algafood.api.dto.request.OrderUpdateRequestDTO;
 import com.victorkayk.algafood.api.dto.response.OrderResponseDTO;
 import com.victorkayk.algafood.api.dto.response.OrderSimplifiedResponseDTO;
+import com.victorkayk.algafood.domain.dto.OrderFilterDTO;
 import com.victorkayk.algafood.domain.model.Order;
 import com.victorkayk.algafood.domain.model.State;
 import org.mapstruct.Mapper;
@@ -33,6 +35,8 @@ public interface OrderMapper {
     Order updateRequestDTOToEntity(OrderUpdateRequestDTO dto);
 
     OrderUpdateRequestDTO entityToUpdateRequestDTO(Order entity);
+
+    OrderFilterDTO toOrderFilterDTO(OrderFilterRequestDTO dto);
 
     default State map(String value) {
         if (value == null) {

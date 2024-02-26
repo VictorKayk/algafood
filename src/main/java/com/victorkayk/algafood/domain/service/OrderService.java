@@ -1,5 +1,6 @@
 package com.victorkayk.algafood.domain.service;
 
+import com.victorkayk.algafood.domain.dto.OrderFilterDTO;
 import com.victorkayk.algafood.domain.enums.StatusOrderEnum;
 import com.victorkayk.algafood.domain.model.Order;
 
@@ -10,7 +11,7 @@ public interface OrderService {
 
     void delete(String uuid);
 
-    List<Order> findAll();
+    List<Order> findAll(OrderFilterDTO dto);
 
     Order findByUuid(String uuid);
 

@@ -1,5 +1,6 @@
 package com.victorkayk.algafood.domain.service.impl;
 
+import com.victorkayk.algafood.domain.dto.OrderFilterDTO;
 import com.victorkayk.algafood.domain.enums.ErrorEnum;
 import com.victorkayk.algafood.domain.enums.StatusOrderEnum;
 import com.victorkayk.algafood.domain.exception.ApiException;
@@ -8,6 +9,7 @@ import com.victorkayk.algafood.domain.model.PaymentMethod;
 import com.victorkayk.algafood.domain.model.Product;
 import com.victorkayk.algafood.domain.model.Restaurant;
 import com.victorkayk.algafood.domain.repository.OrderRepository;
+import com.victorkayk.algafood.domain.repository.spec.OrderSpecs;
 import com.victorkayk.algafood.domain.service.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
@@ -73,8 +75,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findAll() {
-        return orderRepository.findAll();
+    public List<Order> findAll(OrderFilterDTO dto) {
+        return orderRepository.findAll(OrderSpecs.filterOrders(dto));
     }
 
     @Override
