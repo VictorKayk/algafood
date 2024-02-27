@@ -3,15 +3,15 @@ package com.victorkayk.algafood.domain.service;
 import com.victorkayk.algafood.domain.dto.OrderFilterDTO;
 import com.victorkayk.algafood.domain.enums.StatusOrderEnum;
 import com.victorkayk.algafood.domain.model.Order;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface OrderService {
     Order save(Order order);
 
     void delete(String uuid);
 
-    List<Order> findAll(OrderFilterDTO dto);
+    Page<Order> findAll(Pageable pageable, OrderFilterDTO dto);
 
     Order findByUuid(String uuid);
 

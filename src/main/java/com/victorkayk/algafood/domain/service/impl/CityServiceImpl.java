@@ -11,9 +11,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class CityServiceImpl implements CityService {
@@ -45,8 +45,8 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public List<City> findAll() {
-        return cityRepository.findAll();
+    public Page<City> findAll(Pageable pageable) {
+        return cityRepository.findAll(pageable);
     }
 
     @Override

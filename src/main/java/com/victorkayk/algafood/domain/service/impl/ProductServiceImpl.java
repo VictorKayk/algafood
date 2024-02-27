@@ -11,9 +11,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -47,11 +47,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAll(Long restaurantId, Boolean inactive) {
+    public Page<Product> findAll(Pageable pageable, Long restaurantId, Boolean inactive) {
         restaurantService.findById(restaurantId);
 
-        if (inactive != null && inactive) return productRepository.findAll(restaurantId);
-        return productRepository.findAllActive(restaurantId);
+        if (inactive != null && inactive) return productRepository.findAll(pageable, restaurantId);
+        return productRepository.findAllActive(pageable, restaurantId);
     }
 
     @Override

@@ -7,15 +7,18 @@ import com.victorkayk.algafood.api.dto.request.OrderUpdateStatusRequestDTO;
 import com.victorkayk.algafood.api.dto.response.OrderResponseDTO;
 import com.victorkayk.algafood.api.dto.response.OrderSimplifiedResponseDTO;
 import com.victorkayk.algafood.api.mapper.OrderMapper;
+import com.victorkayk.algafood.api.util.PageableUtils;
 import com.victorkayk.algafood.domain.model.Order;
 import com.victorkayk.algafood.domain.service.OrderService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.HashMap;
 
 @Tag(name = "Orders", description = "Order endpoints")
 @RestController
@@ -28,9 +31,10 @@ public class OrderController {
     private OrderMapper orderMapper;
 
     @GetMapping
-    public ResponseEntity<List<OrderSimplifiedResponseDTO>> list(OrderFilterRequestDTO dto) {
-        List<Order> orders = orderService.findAll(orderMapper.toOrderFilterDTO(dto));
-        return ResponseEntity.ok(orderMapper.toSimplifiedResponseDTO(orders));
+    @ResponseStatus(HttpStatus.OK)
+    public Page<OrderSimplifiedResponseDTO> list(Pageable pageable, OrderFilterRequestDTO dto) {
+        Page<Order> orders = orderService.findAll(getPageableWithMappedSorts(pageable), orderMapper.toOrderFilterDTO(dto));
+        return orders.map(orderMapper::toSimplifiedResponseDTO);
     }
 
     @GetMapping("/{id}")
@@ -60,5 +64,20 @@ public class OrderController {
     public ResponseEntity<OrderSimplifiedResponseDTO> updateStatus(@PathVariable String id, @RequestBody OrderUpdateStatusRequestDTO dto) {
         orderService.updateStatus(id, dto.status());
         return ResponseEntity.noContent().build();
+    }
+
+    private Pageable getPageableWithMappedSorts(Pageable pageable) {
+        HashMap<String, String> possibleSorts = new HashMap<>();
+        possibleSorts.put("id", "uuid");
+        possibleSorts.put("subtotal", "subtotal");
+        possibleSorts.put("shippingFee", "shippingFee");
+        possibleSorts.put("total", "total");
+        possibleSorts.put("status", "status");
+        possibleSorts.put("createdAt", "createdAt");
+        possibleSorts.put("client.name", "client.name");
+        possibleSorts.put("restaurant.id", "restaurant.id");
+        possibleSorts.put("restaurant.name", "restaurant.name");
+
+        return PageableUtils.mapSort(pageable, possibleSorts);
     }
 }

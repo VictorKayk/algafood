@@ -26,8 +26,8 @@ public class Product {
     @Column(name = "price", nullable = false)
     private BigDecimal price;
 
-    @Column(name = "active", nullable = false)
-    private Boolean active = true;
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive = true;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_photo_id")

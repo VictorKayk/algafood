@@ -4,15 +4,19 @@ import com.victorkayk.algafood.api.dto.request.GroupCreateRequestDTO;
 import com.victorkayk.algafood.api.dto.request.GroupUpdateRequestDTO;
 import com.victorkayk.algafood.api.dto.response.GroupResponseDTO;
 import com.victorkayk.algafood.api.mapper.GroupMapper;
+import com.victorkayk.algafood.api.util.PageableUtils;
 import com.victorkayk.algafood.domain.model.Group;
 import com.victorkayk.algafood.domain.service.GroupService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Tag(name = "Groups", description = "Group endpoints")
 @RestController
@@ -25,9 +29,9 @@ public class GroupController {
     private GroupMapper groupMapper;
 
     @GetMapping
-    public ResponseEntity<List<GroupResponseDTO>> list() {
-        List<Group> groups = groupService.findAll();
-        return ResponseEntity.ok(groupMapper.toResponseDTO(groups));
+    public ResponseEntity<Page<GroupResponseDTO>> list(Pageable pageable) {
+        Page<Group> groups = groupService.findAll(getPageableWithMappedSorts(pageable));
+        return ResponseEntity.ok(groups.map(groupMapper::toResponseDTO));
     }
 
     @GetMapping("/{id}")
@@ -51,5 +55,13 @@ public class GroupController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         groupService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    private Pageable getPageableWithMappedSorts(Pageable pageable) {
+        Map<String, String> possibleSorts = new HashMap<>();
+        possibleSorts.put("id", "id");
+        possibleSorts.put("name", "name");
+
+        return PageableUtils.mapSort(pageable, possibleSorts);
     }
 }

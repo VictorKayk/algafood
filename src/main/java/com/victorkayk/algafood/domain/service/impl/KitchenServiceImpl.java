@@ -9,9 +9,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class KitchenServiceImpl implements KitchenService {
@@ -38,8 +38,8 @@ public class KitchenServiceImpl implements KitchenService {
     }
 
     @Override
-    public List<Kitchen> findAll() {
-        return kitchenRepository.findAll();
+    public Page<Kitchen> findAll(Pageable pageable) {
+        return kitchenRepository.findAll(pageable);
     }
 
     @Override

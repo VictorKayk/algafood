@@ -1,15 +1,15 @@
 package com.victorkayk.algafood.domain.service;
 
 import com.victorkayk.algafood.domain.model.State;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface StateService {
     State save(State state);
 
     void delete(Long id);
 
-    List<State> findAll();
+    Page<State> findAll(Pageable pageable);
 
     State findById(Long id);
 

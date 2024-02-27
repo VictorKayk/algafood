@@ -4,15 +4,18 @@ import com.victorkayk.algafood.api.dto.request.PermissionCreateRequestDTO;
 import com.victorkayk.algafood.api.dto.request.PermissionUpdateRequestDTO;
 import com.victorkayk.algafood.api.dto.response.PermissionResponseDTO;
 import com.victorkayk.algafood.api.mapper.PermissionMapper;
+import com.victorkayk.algafood.api.util.PageableUtils;
 import com.victorkayk.algafood.domain.model.Permission;
 import com.victorkayk.algafood.domain.service.PermissionService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.HashMap;
 
 @Tag(name = "Permissions", description = "Permission endpoints")
 @RestController
@@ -25,9 +28,9 @@ public class PermissionController {
     private PermissionMapper permissionMapper;
 
     @GetMapping
-    public ResponseEntity<List<PermissionResponseDTO>> list() {
-        List<Permission> permissions = permissionService.findAll();
-        return ResponseEntity.ok(permissionMapper.toResponseDTO(permissions));
+    public ResponseEntity<Page<PermissionResponseDTO>> list(Pageable pageable) {
+        Page<Permission> permissions = permissionService.findAll(getPageableWithMappedSorts(pageable));
+        return ResponseEntity.ok(permissions.map(permissionMapper::toResponseDTO));
     }
 
     @GetMapping("/{id}")
@@ -51,5 +54,13 @@ public class PermissionController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         permissionService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    private Pageable getPageableWithMappedSorts(Pageable pageable) {
+        HashMap<String, String> possibleSorts = new HashMap<>();
+        possibleSorts.put("id", "id");
+        possibleSorts.put("name", "name");
+
+        return PageableUtils.mapSort(pageable, possibleSorts);
     }
 }

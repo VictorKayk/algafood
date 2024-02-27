@@ -15,9 +15,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -75,8 +75,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findAll(OrderFilterDTO dto) {
-        return orderRepository.findAll(OrderSpecs.filterOrders(dto));
+    public Page<Order> findAll(Pageable pageable, OrderFilterDTO dto) {
+        return orderRepository.findAll(OrderSpecs.filterOrders(dto), pageable);
     }
 
     @Override

@@ -12,6 +12,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -59,8 +61,8 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List<Restaurant> findAll() {
-        return restaurantRepository.findAll();
+    public Page<Restaurant> findAll(Pageable pageable) {
+        return restaurantRepository.findAll(pageable);
     }
 
     @Override

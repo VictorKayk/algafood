@@ -9,9 +9,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class PermissionServiceImpl implements PermissionService {
@@ -38,8 +38,8 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public List<Permission> findAll() {
-        return permissionRepository.findAll();
+    public Page<Permission> findAll(Pageable pageable) {
+        return permissionRepository.findAll(pageable);
     }
 
     @Override
@@ -54,5 +54,10 @@ public class PermissionServiceImpl implements PermissionService {
         Permission savedPermission = findById(id);
         BeanUtils.copyProperties(Permission, savedPermission, "id");
         return permissionRepository.save(savedPermission);
+    }
+
+    @Override
+    public Page<Permission> findPermissionsByGroupId(Pageable pageable, Long groupId) {
+        return permissionRepository.findPermissionsByGroupId(pageable, groupId);
     }
 }

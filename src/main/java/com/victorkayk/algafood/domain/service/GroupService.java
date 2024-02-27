@@ -1,15 +1,16 @@
 package com.victorkayk.algafood.domain.service;
 
 import com.victorkayk.algafood.domain.model.Group;
-
-import java.util.List;
+import com.victorkayk.algafood.domain.model.Permission;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface GroupService {
     Group save(Group state);
 
     void delete(Long id);
 
-    List<Group> findAll();
+    Page<Group> findAll(Pageable pageable);
 
     Group findById(Long id);
 
@@ -18,4 +19,8 @@ public interface GroupService {
     void associatePermission(Long groupId, Long permissionId);
 
     void disassociatePermission(Long groupId, Long permissionId);
+
+    Page<Permission> findPermissionsByGroupId(Pageable pageable, Long groupId);
+
+    Page<Group> findAllByUserId(Pageable pageable, Long userId);
 }

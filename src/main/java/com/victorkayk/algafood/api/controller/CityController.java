@@ -4,15 +4,19 @@ import com.victorkayk.algafood.api.dto.request.CityCreateRequestDTO;
 import com.victorkayk.algafood.api.dto.request.CityUpdateRequestDTO;
 import com.victorkayk.algafood.api.dto.response.CityResponseDTO;
 import com.victorkayk.algafood.api.mapper.CityMapper;
+import com.victorkayk.algafood.api.util.PageableUtils;
 import com.victorkayk.algafood.domain.model.City;
 import com.victorkayk.algafood.domain.service.CityService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Tag(name = "Cities", description = "City endpoints")
 @RestController
@@ -25,9 +29,9 @@ public class CityController {
     private CityMapper cityMapper;
 
     @GetMapping
-    public ResponseEntity<List<CityResponseDTO>> list() {
-        List<City> cities = cityService.findAll();
-        return ResponseEntity.ok(cityMapper.toResponseDTO(cities));
+    public ResponseEntity<Page<CityResponseDTO>> list(Pageable pageable) {
+        Page<City> cities = cityService.findAll(getPageableWithMappedSorts(pageable));
+        return ResponseEntity.ok(cities.map(cityMapper::toResponseDTO));
     }
 
     @GetMapping("/{id}")
@@ -51,5 +55,13 @@ public class CityController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         cityService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    private Pageable getPageableWithMappedSorts(Pageable pageable) {
+        Map<String, String> possibleSorts = new HashMap<>();
+        possibleSorts.put("id", "id");
+        possibleSorts.put("name", "name");
+
+        return PageableUtils.mapSort(pageable, possibleSorts);
     }
 }

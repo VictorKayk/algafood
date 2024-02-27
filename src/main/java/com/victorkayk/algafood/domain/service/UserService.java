@@ -1,15 +1,15 @@
 package com.victorkayk.algafood.domain.service;
 
 import com.victorkayk.algafood.domain.model.User;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface UserService {
     User save(User user);
 
     void delete(Long id);
 
-    List<User> findAll();
+    Page<User> findAll(Pageable pageable);
 
     User findById(Long id);
 
@@ -20,4 +20,6 @@ public interface UserService {
     void associateGroup(Long userId, Long groupId);
 
     void disassociateGroup(Long userId, Long groupId);
+
+    Page<User> findAllByRestaurantId(Pageable pageable, Long restaurantId);
 }

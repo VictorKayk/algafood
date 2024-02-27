@@ -1,15 +1,15 @@
 package com.victorkayk.algafood.domain.service;
 
 import com.victorkayk.algafood.domain.model.Product;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface ProductService {
     Product save(Product Product);
 
     void delete(Long restaurantId, Long id);
 
-    List<Product> findAll(Long restaurantId, Boolean inactive);
+    Page<Product> findAll(Pageable pageable, Long restaurantId, Boolean inactive);
 
     Product findById(Long id);
 

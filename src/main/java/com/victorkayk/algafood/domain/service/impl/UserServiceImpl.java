@@ -11,15 +11,16 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserRepository stateRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private GroupService groupService;
@@ -27,13 +28,13 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User save(User user) {
-        Optional<User> existingUser = stateRepository.findByEmail(user.getEmail());
+        Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
 
         if (existingUser.isPresent() && !existingUser.get().equals(user)) {
             throw new ApiException(ErrorEnum.USER_ALREADY_EXISTS);
         }
 
-        return stateRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override
@@ -42,21 +43,21 @@ public class UserServiceImpl implements UserService {
         User state = findById(id);
 
         try {
-            stateRepository.delete(state);
-            stateRepository.flush();
+            userRepository.delete(state);
+            userRepository.flush();
         } catch (DataIntegrityViolationException e) {
             throw new ApiException(ErrorEnum.STATE_IN_USE);
         }
     }
 
     @Override
-    public List<User> findAll() {
-        return stateRepository.findAll();
+    public Page<User> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
     @Override
     public User findById(Long id) {
-        return stateRepository.findById(id)
+        return userRepository.findById(id)
                 .orElseThrow(() -> new ApiException(ErrorEnum.RESTAURANT_NOT_FOUND));
     }
 
@@ -65,7 +66,7 @@ public class UserServiceImpl implements UserService {
     public User update(Long id, User user) {
         User savedUser = findById(id);
         BeanUtils.copyProperties(user, savedUser, "id");
-        return stateRepository.save(savedUser);
+        return userRepository.save(savedUser);
     }
 
     @Override
@@ -94,5 +95,10 @@ public class UserServiceImpl implements UserService {
         User user = findById(userId);
         Group group = groupService.findById(groupId);
         user.disassociateGroup(group);
+    }
+
+    @Override
+    public Page<User> findAllByRestaurantId(Pageable pageable, Long restaurantId) {
+        return userRepository.findAllByRestaurantId(pageable, restaurantId);
     }
 }

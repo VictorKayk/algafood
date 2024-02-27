@@ -9,9 +9,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class PaymentMethodServiceImpl implements PaymentMethodService {
@@ -38,8 +38,8 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
     }
 
     @Override
-    public List<PaymentMethod> findAll() {
-        return paymentMethodRepository.findAll();
+    public Page<PaymentMethod> findAll(Pageable pageable) {
+        return paymentMethodRepository.findAll(pageable);
     }
 
     @Override
@@ -54,5 +54,10 @@ public class PaymentMethodServiceImpl implements PaymentMethodService {
         PaymentMethod savedPaymentMethod = findById(id);
         BeanUtils.copyProperties(paymentMethod, savedPaymentMethod, "id");
         return paymentMethodRepository.save(savedPaymentMethod);
+    }
+
+    @Override
+    public Page<PaymentMethod> findAllByRestaurantId(Pageable pageable, Long restaurantId) {
+        return paymentMethodRepository.findAllByRestaurantId(pageable, restaurantId);
     }
 }

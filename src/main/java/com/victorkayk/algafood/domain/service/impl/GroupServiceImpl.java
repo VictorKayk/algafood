@@ -11,9 +11,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class GroupServiceImpl implements GroupService {
@@ -43,8 +43,8 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public List<Group> findAll() {
-        return groupRepository.findAll();
+    public Page<Group> findAll(Pageable pageable) {
+        return groupRepository.findAll(pageable);
     }
 
     @Override
@@ -75,5 +75,15 @@ public class GroupServiceImpl implements GroupService {
         Group group = findById(groupId);
         Permission permission = permissionService.findById(permissionId);
         group.disassociatePermission(permission);
+    }
+
+    @Override
+    public Page<Permission> findPermissionsByGroupId(Pageable pageable, Long groupId) {
+        return permissionService.findPermissionsByGroupId(pageable, groupId);
+    }
+
+    @Override
+    public Page<Group> findAllByUserId(Pageable pageable, Long userId) {
+        return groupRepository.findAllByUserId(pageable, userId);
     }
 }

@@ -15,8 +15,10 @@ public class OrderSpecs {
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            root.fetch("restaurant").fetch("kitchen");
-            root.fetch("client");
+            if (Order.class.equals(query.getResultType())) {
+                root.fetch("restaurant").fetch("kitchen");
+                root.fetch("client");
+            }
 
             if (dto != null) {
                 if (dto.restaurantId() != null) {

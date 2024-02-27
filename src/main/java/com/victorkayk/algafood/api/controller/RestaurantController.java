@@ -5,15 +5,18 @@ import com.victorkayk.algafood.api.dto.request.RestaurantCreateRequestDTO;
 import com.victorkayk.algafood.api.dto.request.RestaurantUpdateRequestDTO;
 import com.victorkayk.algafood.api.dto.response.RestaurantResponseDTO;
 import com.victorkayk.algafood.api.mapper.RestaurantMapper;
+import com.victorkayk.algafood.api.util.PageableUtils;
 import com.victorkayk.algafood.domain.model.Restaurant;
 import com.victorkayk.algafood.domain.service.RestaurantService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.HashMap;
 
 @Tag(name = "Restaurants", description = "Restaurant endpoints")
 @RestController
@@ -26,9 +29,9 @@ public class RestaurantController {
     private RestaurantMapper restaurantMapper;
 
     @GetMapping
-    public ResponseEntity<List<RestaurantResponseDTO>> list() {
-        List<Restaurant> restaurants = restaurantService.findAll();
-        return ResponseEntity.ok(restaurantMapper.toResponseDTO(restaurants));
+    public ResponseEntity<Page<RestaurantResponseDTO>> list(Pageable pageable) {
+        Page<Restaurant> restaurants = restaurantService.findAll(getPageableWithMappedSorts(pageable));
+        return ResponseEntity.ok(restaurants.map(restaurantMapper::toResponseDTO));
     }
 
     @GetMapping("/{id}")
@@ -88,5 +91,17 @@ public class RestaurantController {
     public ResponseEntity<Void> close(@PathVariable Long id) {
         restaurantService.close(id);
         return ResponseEntity.noContent().build();
+    }
+
+    private Pageable getPageableWithMappedSorts(Pageable pageable) {
+        HashMap<String, String> possibleSorts = new HashMap<>();
+        possibleSorts.put("id", "id");
+        possibleSorts.put("name", "name");
+        possibleSorts.put("shippingFee", "shippingFee");
+        possibleSorts.put("isActive", "isActive");
+        possibleSorts.put("isOpen", "isOpen");
+        possibleSorts.put("kitchen.name", "kitchen.name");
+
+        return PageableUtils.mapSort(pageable, possibleSorts);
     }
 }

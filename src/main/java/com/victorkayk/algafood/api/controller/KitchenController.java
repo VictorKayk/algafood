@@ -4,15 +4,18 @@ import com.victorkayk.algafood.api.dto.request.KitchenCreateRequestDTO;
 import com.victorkayk.algafood.api.dto.request.KitchenUpdateRequestDTO;
 import com.victorkayk.algafood.api.dto.response.KitchenResponseDTO;
 import com.victorkayk.algafood.api.mapper.KitchenMapper;
+import com.victorkayk.algafood.api.util.PageableUtils;
 import com.victorkayk.algafood.domain.model.Kitchen;
 import com.victorkayk.algafood.domain.service.KitchenService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.HashMap;
 
 @Tag(name = "Kitchens", description = "Kitchen endpoints")
 @RestController
@@ -25,9 +28,9 @@ public class KitchenController {
     private KitchenMapper kitchenMapper;
 
     @GetMapping
-    public ResponseEntity<List<KitchenResponseDTO>> list() {
-        List<Kitchen> kitchens = kitchenService.findAll();
-        return ResponseEntity.ok(kitchenMapper.toResponseDTO(kitchens));
+    public ResponseEntity<Page<KitchenResponseDTO>> list(Pageable pageable) {
+        Page<Kitchen> kitchens = kitchenService.findAll(getPageableWithMappedSorts(pageable));
+        return ResponseEntity.ok(kitchens.map(kitchenMapper::toResponseDTO));
     }
 
     @GetMapping("/{id}")
@@ -51,5 +54,13 @@ public class KitchenController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         kitchenService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    private Pageable getPageableWithMappedSorts(Pageable pageable) {
+        HashMap<String, String> possibleSorts = new HashMap<>();
+        possibleSorts.put("id", "id");
+        possibleSorts.put("name", "name");
+
+        return PageableUtils.mapSort(pageable, possibleSorts);
     }
 }

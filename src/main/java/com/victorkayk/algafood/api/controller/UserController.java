@@ -5,15 +5,18 @@ import com.victorkayk.algafood.api.dto.request.UserPasswordUpdateRequestDTO;
 import com.victorkayk.algafood.api.dto.request.UserUpdateRequestDTO;
 import com.victorkayk.algafood.api.dto.response.UserResponseDTO;
 import com.victorkayk.algafood.api.mapper.UserMapper;
+import com.victorkayk.algafood.api.util.PageableUtils;
 import com.victorkayk.algafood.domain.model.User;
 import com.victorkayk.algafood.domain.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.HashMap;
 
 @Tag(name = "Users", description = "User endpoints")
 @RestController
@@ -26,9 +29,9 @@ public class UserController {
     private UserMapper userMapper;
 
     @GetMapping
-    public ResponseEntity<List<UserResponseDTO>> list() {
-        List<User> users = userService.findAll();
-        return ResponseEntity.ok(userMapper.toResponseDTO(users));
+    public ResponseEntity<Page<UserResponseDTO>> list(Pageable pageable) {
+        Page<User> users = userService.findAll(pageable);
+        return ResponseEntity.ok(users.map(userMapper::toResponseDTO));
     }
 
     @GetMapping("/{id}")
@@ -58,5 +61,13 @@ public class UserController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         userService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    private Pageable getPageableWithMappedSorts(Pageable pageable) {
+        HashMap<String, String> possibleSorts = new HashMap<>();
+        possibleSorts.put("id", "id");
+        possibleSorts.put("name", "name");
+
+        return PageableUtils.mapSort(pageable, possibleSorts);
     }
 }
