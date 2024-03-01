@@ -32,7 +32,10 @@ public enum ErrorEnum {
     ORDER_NOT_FOUND("Order not found", ErrorTypeEnum.NOT_FOUND),
     INVALID_STATUS_UPDATE("Invalid status update", ErrorTypeEnum.BAD_REQUEST),
     NO_SUCH_METHOD("No such method", ErrorTypeEnum.BAD_REQUEST),
-    USER_ALREADY_EXISTS("User already exists", ErrorTypeEnum.BAD_REQUEST);
+    USER_ALREADY_EXISTS("User already exists", ErrorTypeEnum.BAD_REQUEST),
+    ERROR_WHILE_GENERATING_REPORT("Error while generating report", ErrorTypeEnum.INTERNAL_ERROR),
+    TEMPLATE_NOT_FOUND("Template not found", ErrorTypeEnum.NOT_FOUND),
+    TEMPLATE_PROCESSING_ERROR("Error while processing template", ErrorTypeEnum.INTERNAL_ERROR);
 
     private final String title;
     private final ErrorTypeEnum status;
