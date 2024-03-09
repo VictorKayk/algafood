@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductPhoto {
+public class File {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
